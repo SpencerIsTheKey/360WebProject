@@ -4,6 +4,7 @@ body{
 }
 #navbar{
     position: sticky;
+    top:0;
     background-color: #5b5656;
     overflow: auto;
     width: 100%;

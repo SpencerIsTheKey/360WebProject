@@ -13,7 +13,18 @@
     background-color: #4d4646;
 }
 .popBlog{
-    border-top: 2px solid #f5eaea;
+    border-top: 2px solid #7fcd91;
     overflow: auto;
-    height: fit-content;
+    height: auto;
+}
+figure{
+    position: relative;
+    width: fit-content;
+    float: left;
+    clear: left;
+    overflow: auto;
+}
+.right{
+    float: right;
+    margin-right: 2em;
 }
