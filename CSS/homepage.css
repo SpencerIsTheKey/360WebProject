@@ -1,6 +1,8 @@
 #navbar{
+    position: absolute;
     background-color: #4d4646;
     overflow: auto;
+    width: 100%;
 }
 #logo{
     padding-top: 1em;
