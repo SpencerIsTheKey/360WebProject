@@ -3,7 +3,7 @@ body{
     color: white;
 }
 #navbar{
-    position: absolute;
+    position: sticky;
     background-color: #4d4646;
     overflow: auto;
     width: 100%;
@@ -19,6 +19,10 @@ body{
 #logo img{
     width:100%;
     height:100%;
+}
+#title{
+    float:left;
+    margin-left:1em;
 }
 #searchbar{
     float: left;
