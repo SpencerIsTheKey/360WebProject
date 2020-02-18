@@ -1,0 +1,44 @@
+body{
+    background-color: #5b5656;
+    color: white;
+}
+#navbar{
+    position: sticky;
+    background-color: #5b5656;
+    overflow: auto;
+    width: 100%;
+}
+#logo{
+    padding-top: 1em;
+    padding-bottom: 1em;
+    padding-left: 1em;
+    height: 4em;
+    width: 4em;
+    float: left;
+}
+#logo img{
+    width:100%;
+    height:100%;
+}
+#title{
+    float:left;
+    margin-left:1em;
+}
+#searchbar{
+    float: left;
+    margin-top: 1.5em;
+    margin-left:1em;
+    padding: 0.5em;
+    background-color: #5b5656;
+}
+#login{
+    float:right;
+    padding-top: 2em;
+    padding-right: 2em;
+}
+.linkbutton{
+    background-color: #f5eaea;
+    text-decoration: none;
+    color: black;
+    padding: 0.5em;
+}
