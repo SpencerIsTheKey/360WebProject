@@ -1,43 +1,83 @@
 <!Doctype HTML>
 
 <html>
-    <head>
-        <title>Talk About Turtles</title>
-        <link rel="stylesheet" href="../CSS/navbar.css">
-        <link rel="stylesheet" href="../CSS/search.css">
-    </head>
 
-    <div id="navbar">
-        <div id="logo">
-            <a href="#"></a>
-                <img src="../CSS/images/Turtle.png">
-            </a>
-        </div>
-        <div id="title">
-            <h1>Talk About Turtles</h1>
-        </div>
-        <div id="searchbar">
-            <form>
-                <input id="search" type="text"/>
-            </form>
-        </div>
-        <div id="login">
-            <a class="linkbutton" href="#">Login/Signup</a>
-        </div>
+<head>
+    <title>Talk About Turtles</title>
+    <link rel="stylesheet" href="../CSS/navbar.css">
+    <link rel="stylesheet" href="../CSS/blogpage.css">
+</head>
+
+<div id="navbar">
+    <div id="logo">
+        <a href="#"></a>
+            <img src="../CSS/images/Turtle.png">
+        </a>
     </div>
+    <div id="title">
+        <h1>Talk About Turtles</h1>
+    </div>
+    <div id="searchbar">
+        <form>
+            <input id="search" type="text"/>
+        </form>
+    </div>
+    <div id="login">
+        <a class="linkbutton" href="#">Login/Signup</a>
+    </div>
+</div>
 
-    <body>
-        <div id="main">
-            <h1>Search Results</h1>
-            <h2>Search For:</h2>
-            <form><input type="text" value="Search..."/></form>
+<body>
+    <div id="main">
+        <article id="right-sidebar">
+            <form>
+                <br>
+                <label for="firstFilter">First Filter:</label>
+                <select id="firstFilter">
+                    <option>option1</option>
+                    <option>option2</option>
+                    <option>option3</option>
+                    <option>option4</option>
+                </select>
+                <br><br>
+                <label for="secondFilter">First Filter:</label>
+                <select id="secondFilter">
+                    <option>option1</option>
+                    <option>option2</option>
+                    <option>option3</option>
+                    <option>option4</option>
+                </select>
+                <br><br>
+                <label for="thirdFilter">First Filter:</label>
+                <select id="thirdFilter">
+                    <option>option1</option>
+                    <option>option2</option>
+                    <option>option3</option>
+                    <option>option4</option>
+                </select>
+                <br>
+            </form>
+
+            <h2>About Me</h2>
+            <p>Your intro to Turtleblogging!</p>
             <br>
-            <div class="result">
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sodales quis est in pretium. Cras in dui sed
+                odio pellentesque
+                vehicula non sed sapien. Quisque eget est pellentesque, rhoncus massa id, ultrices lectus. Donec aliquet
+                efficitur
+                condimentum. Pellentesque et erat arcu. Aliquam eget diam finibus, efficitur risus vitae, sagittis
+                sapien.
+            </p>
+        </article>
+        <article id="center">
+            <h1>Recent Posts</h1>
+            <div class="recentPost">
                 <figure>
-                    <img src="../CSS/images/firstBlog" alt="Blog Cover Photo">
+                    <img src="../CSS/images/firstPost" alt="First Post Photo">
                 </figure>
                 <div>
-                    <h2>Most Relevant Blog</h2>
+                    <h2>Most Recent Post</h2>
                     <p>Snippet about blog Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sodales quis est
                         in pretium. Cras in
                         dui sed odio pellentesque vehicula non sed sapien. Quisque eget est pellentesque, rhoncus massa
@@ -51,16 +91,16 @@
                         finibus ligula.
                     </p>
                     <div class="right">
-                        <a href="#" class="linkbutton">Go to Blog</a>
+                        <a href="#" class="linkbutton">Go to Post</a>
                     </div>
                 </div>
             </div>
-            <div class="result">
+            <div class="recentPost">
                 <figure>
-                    <img src="../CSS/images/firstBlog" alt="Blog Cover Photo">
+                    <img src="../CSS/images/secondPost" alt="Second Post Photo">
                 </figure>
                 <div>
-                    <h2>Secondmost Relevant Blog</h2>
+                    <h2>Secondmost Recent Post</h2>
                     <p>Snippet about blog Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sodales quis est
                         in pretium. Cras in
                         dui sed odio pellentesque vehicula non sed sapien. Quisque eget est pellentesque, rhoncus massa
@@ -74,16 +114,16 @@
                         finibus ligula.
                     </p>
                     <div class="right">
-                        <a href="#" class="linkbutton">Go to Blog</a>
+                        <a href="#" class="linkbutton">Go to Post</a>
                     </div>
                 </div>
             </div>
-            <div class="result">
+            <div class="recentPost">
                 <figure>
-                    <img src="../CSS/images/firstBlog" alt="Blog Cover Photo">
+                    <img src="../CSS/images/thirdPost" alt="Third Post Photo">
                 </figure>
                 <div>
-                    <h2>Thirdmost Relevant Blog</h2>
+                    <h2>Thirdmost Recent Post</h2>
                     <p>Snippet about blog Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sodales quis est
                         in pretium. Cras in
                         dui sed odio pellentesque vehicula non sed sapien. Quisque eget est pellentesque, rhoncus massa
@@ -97,13 +137,13 @@
                         finibus ligula.
                     </p>
                     <div class="right">
-                        <a href="#" class="linkbutton">Go to Blog</a>
+                        <a href="#" class="linkbutton">Go to Post</a>
                     </div>
                 </div>
             </div>
-            <div class="result">
+            <div class="recentPost">
                 <figure>
-                    <img src="../CSS/images/firstBlog" alt="Blog Cover Photo">
+                    <img src="../CSS/images/nextPost" alt="Next Post Photo">
                 </figure>
                 <div>
                     <h2>This continues as long as the viewer scrolls</h2>
@@ -120,13 +160,16 @@
                         finibus ligula.
                     </p>
                     <div class="right">
-                        <a href="#" class="linkbutton">Go to Blog</a>
+                        <a href="#" class="linkbutton">Go to Post</a>
                     </div>
                 </div>
             </div>
-        </div>
-        <footer>
 
-        </footer>
-    </body>
+        </article>
+    </div>
+    <footer>
+
+    </footer>
+</body>
+
 </html>

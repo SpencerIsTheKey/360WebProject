@@ -1,0 +1,21 @@
+#center{
+    margin-left: 24em;
+    background-color: #4d4646;
+}
+.result{
+    border-top: 2px solid #7fcd91;
+    background-color: #4d4646;
+    overflow: auto;
+    height: auto;
+}
+figure{
+    position: relative;
+    width: fit-content;
+    float: left;
+    clear: left;
+    overflow: auto;
+}
+.right{
+    float: right;
+    margin-right: 2em;
+}
