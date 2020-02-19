@@ -3,30 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS/navbar.css">
+    <link rel="stylesheet" href="../CSS/homepage.css">
     <title>Talk About Turtles</title>
     <style>
-        body {
-            font-family: Georgia, "Times New Roman", Times, serif;
-          
-            margin: 0em 4em 0.5em 4em;
-          }
         #fieldset {
-            
+            color: black;
             padding: 1em;
           }
           legend {
               text-align: center;
           }
 
-          form {
-            background: #ecc886;
+          #forming {
+            background: #f7e3c0;
             padding: 0.5em;
           }
     </style>
+    <script>
+        function validateForm() {
+          var x = document.forms["myForm"]["username"].value;
+          if (x == "") {
+            alert("Name must be filled out");
+            return false;
+          }
+          var y = document.forms["myForm"]["password"].value;
+          if (y == "" || y.length < 5) {
+            alert("Password too short. Needs to be at least 5 characters");
+            return false;
+          }
+        }
+        </script>
 </head>
+<div id="navbar">
+    <div id="logo">
+        <a href="#"></a>
+            <img src="../CSS/images/Turtle.png">
+        </a>
+    </div>
+    <div id="title">
+        <h1>Talk About Turtles</h1>
+    </div>
+    <div id="searchbar">
+        <form>
+            <input id="search" type="text"/>
+        </form>
+    </div>
+    <div id="login">
+        <a class="linkbutton" href="#">Login/Signup</a>
+    </div>
+</div>
 <body>
     
-<form method="post" action="http://www.randyconnolly.com/tests/process.php">
+<form id ="forming" name="myForm" method="post" onsubmit="return validateForm()" action="http://www.randyconnolly.com/tests/process.php">
     <fieldset id="fieldset">
       <legend>Account Creation</legend>
       User Name:
