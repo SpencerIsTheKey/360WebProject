@@ -1,0 +1,47 @@
+header{
+    margin-left: 15em;
+    background-color: #4d4646;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+#right-sidebar{
+    margin-left: 5em;
+    padding-left: 1em;
+    padding-right: 1em;
+    margin-right: 2em;
+    float: left;
+    height: 50em;
+    width: 15em;
+    background-color: #4d4646;
+}
+#center{
+    margin-left: 24em;
+    background-color: #4d4646;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+#commentSection{
+    background-color: #4d4646;
+    margin-left: 24em;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+.recentPost, .comment{
+    border-top: 2px solid #7fcd91;
+    overflow: auto;
+    height: auto;
+}
+.comment p{
+    margin-left:15em;
+}
+figure{
+    position: relative;
+    width: fit-content;
+    float: left;
+    clear: left;
+    overflow: auto;
+}
+.right{
+    float: right;
+    margin-right: 2em;
+}
