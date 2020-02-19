@@ -26,7 +26,7 @@ header{
     padding-left: 1em;
     padding-right: 1em;
 }
-.recentPost, .comment{
+.recentPost, .comment, .recentPost{
     border-top: 2px solid #7fcd91;
     overflow: auto;
     height: auto;

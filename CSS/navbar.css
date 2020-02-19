@@ -2,6 +2,9 @@ body{
     background-color: #5b5656;
     color: white;
 }
+h2{
+    color:#7fcd91;
+}
 #navbar{
     position: sticky;
     top:0;
