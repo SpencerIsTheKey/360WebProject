@@ -12,10 +12,12 @@ class sqliteCreateTable{
         $commands = [
             "CREATE TABLE IF NOT EXISTS blogs(
                 blog_id INTEGER PRIMARY KEY,
+                blog_name TEXT NOT NULL,
                 about TEXT
                 )",
             "CREATE TABLE IF NOT EXISTS users(
                 user_id INTEGER PRIMARY KEY,
+                username TEXT NOT NULL,
                 blog_id INTEGER,
                 is_admin INTEGER NOT NULL,
                 FOREIGN KEY (blog_id)
@@ -24,6 +26,7 @@ class sqliteCreateTable{
                 )",
             "CREATE TABLE IF NOT EXISTS articles(
                 article_id INTEGER PRIMARY KEY,
+                article_name TEXT NOT NULL,
                 parent_blog INTEGER NOT NULL,
                 article_content TEXT,
                 FOREIGN KEY (parent_blog)
