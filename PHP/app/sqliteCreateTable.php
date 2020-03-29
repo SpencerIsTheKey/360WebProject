@@ -38,7 +38,7 @@ class sqliteCreateTable{
                 replied_to INTEGER,
                 article_id INTEGER NOT NULL,
                 user_id INTEGER NOT NULL,
-                content TEXT,
+                comment_content TEXT,
                 FOREIGN KEY (replied_to)
                 REFERENCES comments(comment_id) ON UPDATE CASCADE
                                                 ON DELETE CASCADE,

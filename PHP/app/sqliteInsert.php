@@ -41,13 +41,14 @@ class sqliteInsert{
         
         return $this->pdo->lastInsertId();
     }
-    public function insertComment($replied_to, $article_id, $user_id, $content){
-        $sql = "INSERT INTO comments(replied_to, article_id, user_id, content) VALUES(:replied_to, :article_id, :user_id, :content)";
+    public function insertComment($replied_to, $article_id, $user_id, $comment_content){
+        $sql = "INSERT INTO comments(replied_to, article_id, user_id, comment_content) VALUES(:replied_to, :article_id, :user_id, :comment_content)";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([
-            ":article_name" => $article_name,
-            ":parent_blog" => $parent_blog,
-            ":article_content" => $article_content,
+            ":replied" => $replied_to,
+            ":article_id" => $article_id,
+            ":user_id" => $user_id,
+            ":comment_content" => $comment_content,
         ]);
 
         return $this->pdo->lastInsertId();
