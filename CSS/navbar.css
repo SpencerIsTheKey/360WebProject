@@ -1,6 +1,7 @@
 body{
     background-color: #5b5656;
     color: white;
+    z-index:1;
 }
 h2{
     color:#7fcd91;
@@ -11,6 +12,7 @@ h2{
     background-color: #5b5656;
     overflow: auto;
     width: 100%;
+    z-index: 9999;
 }
 #logo{
     padding-top: 1em;
