@@ -18,6 +18,7 @@ class sqliteCreateTable{
             "CREATE TABLE IF NOT EXISTS users(
                 user_id INTEGER PRIMARY KEY,
                 username TEXT NOT NULL,
+                password TEXT NOT NULL,
                 blog_id INTEGER,
                 is_admin INTEGER NOT NULL,
                 FOREIGN KEY (blog_id)
