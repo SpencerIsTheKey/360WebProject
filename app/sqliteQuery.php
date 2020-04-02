@@ -17,6 +17,23 @@ class sqliteQuery{
         return $results;
     }
 
+    public function getUserCredentials($user_id){
+        $sql = "SELECT user_id, username, password FROM users WHERE user_id = :user_id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt -> execute([
+            ":user_id"=>$user_id,
+        ]);
+        $results = [];
+        while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)){
+            $results[] = [
+                'user_id' => $row['user_id'],
+                'username' => $row['username'],
+                'password' => $row['password'],
+            ];
+        }
+        return $results;
+    }
+
     public function getBlogByID($blog_id){
         $sql = "SELECT blog_name, about FROM blogs WHERE blog_id = :blog_id";
         $stmt = $this->pdo->prepare($sql);
