@@ -59,18 +59,9 @@
     <header> <h1><?php echo $blog['blog_name'] ?> </h1> </header>
     <div id="main">
         <article id="right-sidebar">
-            <br>
-            <a class="linkbutton" href="#">Most Popular Post</a>
-            <br><br>
-            <a class="linkbutton" href="#">Secondmost Popular Post</a>
-            <br><br>
-            <a class="linkbutton" href='#'>Thirdmost Popular Post</a>
+            
             <h2>About Me</h2>
             <?php echo $blog['about'] ?>
-            <br>
-            <br>
-            <br>
-            <a class="linkbutton" href="./articleList.php?id=<?php echo $_GET['id'] ?>">Article List</a>
         </article>
         <article id="center">
             <h1>Recent Posts</h1>
@@ -87,7 +78,7 @@
                         <?php echo $article['article_content'] ?>
                     </p>
                     <div class="right">
-                        <a href="/360WebProject/pages/blogArticle.php?id=<?php echo $article["article_id"] ?>" class="linkbutton">Go to Post</a>
+                        <a href="./blogArticle.php?id=<?php echo $article["article_id"] ?>" class="linkbutton">Go to Post</a>
                     </div>
                 </div>
             </div>

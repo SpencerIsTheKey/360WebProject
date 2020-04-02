@@ -50,6 +50,11 @@ class sqliteQuery{
         return $results;
     }
 
+    public function articleListSearch($blog_id, $search_for, $search_in){
+        
+
+    }
+
     public function getArticleByID($article_id){
         $sql = "SELECT article_name, article_content, pub_date, parent_blog FROM articles WHERE article_id = :article_id";
         $stmt = $this->pdo->prepare($sql);
