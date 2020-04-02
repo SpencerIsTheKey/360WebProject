@@ -6,7 +6,7 @@
     $conn = (new SQLiteConnection())-> connect();
     $query = new SQLiteQuery($conn);
 
-    $article;
+    $article = [];
 
     if(empty($_GET)){
         $article = $query->getArticleByID(" ");
@@ -77,9 +77,9 @@
                 sapien.</p>
         </article>
         <article id="center">
-            <h2><?php echo $article['article_name']; ?></h2>
-            <h2><?php echo $article['pub_date']; ?></h2>
-            <p><?php echo $article['article_content'] ?></p>
+            <h2><?php echo $article[0]['article_name']; ?></h2>
+            <h2><?php echo $article[0]['pub_date']; ?></h2>
+            <p><?php echo $article[0]['article_content'] ?></p>
         </article>
         <article id="commentSection">
             <div id="newComment">
