@@ -11,7 +11,7 @@
     if(empty($_GET)){
         $article = $query->getArticleByID(" ");
     } else {
-        $article = $query->getArticleByID($_GET['id']);
+        $article = ($query->getArticleByID($_GET['id']))[0];
     }
 
     if(empty($article)){
@@ -19,7 +19,10 @@
             'article_name' => "Article not found",
             'article_content' => "Oops, we can't find that article. Double-check your URL and try again! If you get this message after double-checking your URL, the article you are looking for may have been deleted.",
             'pub_date' => "Uh oh",
+            'parent_blog' => "Confused...",
         ];
+    } else {
+        $article['parent_blog'] = $query->getParentBlogName($article['parent_blog']);
     }
 
 
@@ -56,7 +59,7 @@
 
 <body>
     <header>
-        <h1>Turtles 101</h1>
+        <h1><?php echo $article['parent_blog'] ?></h1>
     </header>
     <div id="main">
         <article id="right-sidebar">
@@ -77,9 +80,9 @@
                 sapien.</p>
         </article>
         <article id="center">
-            <h2><?php echo $article[0]['article_name']; ?></h2>
-            <h2><?php echo $article[0]['pub_date']; ?></h2>
-            <p><?php echo $article[0]['article_content'] ?></p>
+            <h2><?php echo $article['article_name'] ?></h2>
+            <h4><?php echo $article['pub_date'] ?></h4>
+            <p><?php echo $article['article_content'] ?></p>
         </article>
         <article id="commentSection">
             <div id="newComment">
