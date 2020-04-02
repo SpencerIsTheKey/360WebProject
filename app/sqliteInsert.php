@@ -31,12 +31,17 @@ class sqliteInsert{
         return $this->pdo->lastInsertId();
     }
     public function insertArticle($article_name, $parent_blog, $article_content){
-        $sql = "INSERT INTO articles(article_name, parent_blog, article_content) VALUES(:article_name, :parent_blog, :article_content)";
+        $sql = "INSERT INTO articles(article_name, parent_blog, article_content, pub_date) VALUES(:article_name, :parent_blog, :article_content, :pub_date)";
         $stmt = $this->pdo->prepare($sql);
+
+        $date = getdate();
+        $datestring = "$date[year]-$date[mon]-$date[mday]";
+
         $stmt->execute([
             ":article_name" => $article_name,
             ":parent_blog" => $parent_blog,
             ":article_content" => $article_content,
+            ":pub_date" => $datestring,
         ]);
         
         return $this->pdo->lastInsertId();

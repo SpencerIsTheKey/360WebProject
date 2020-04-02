@@ -13,12 +13,14 @@ class sqliteCreateTable{
             "CREATE TABLE IF NOT EXISTS blogs(
                 blog_id INTEGER PRIMARY KEY,
                 blog_name TEXT NOT NULL,
+                hits INTEGER,
                 about TEXT
                 )",
             "CREATE TABLE IF NOT EXISTS users(
                 user_id INTEGER PRIMARY KEY,
                 username TEXT NOT NULL,
                 password TEXT NOT NULL,
+                email TEXT NOT NULL,
                 blog_id INTEGER,
                 is_admin INTEGER NOT NULL,
                 FOREIGN KEY (blog_id)
@@ -30,6 +32,8 @@ class sqliteCreateTable{
                 article_name TEXT NOT NULL,
                 parent_blog INTEGER NOT NULL,
                 article_content TEXT,
+                pub_date TEXT,
+                hits INTEGER,
                 FOREIGN KEY (parent_blog)
                 REFERENCES blogs(blog_id) ON UPDATE CASCADE
                                           ON DELETE CASCADE

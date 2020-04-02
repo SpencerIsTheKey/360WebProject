@@ -25,6 +25,13 @@ class sqliteUpdate{
             ":blog_id" => $blog_id,
         ]);
     }
+    public function addBlogHit($blog_id){
+        $sql = "UPDATE blogs SET hits = hits + 1 WHERE blog_id = :blog_id";
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute([
+            ":blog_id" => $blog_id,
+        ]);
+    }
     public function updateUsername($user_id, $username){
         $sql = "UPDATE users username = :username WHERE user_id = :user_id";
         $stmt = $this->pdo->prepare($sql);
@@ -68,6 +75,13 @@ class sqliteUpdate{
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([
             ":article_content" => $article_content,
+            ":article_id" => $article_id,
+        ]);
+    }
+    public function addArticleHit($article_id){
+        $sql = "UPDATE articles SET hits = hits + 1 WHERE article_id = :article_id";
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute([
             ":article_id" => $article_id,
         ]);
     }
