@@ -12,6 +12,7 @@
     if(empty($_GET)){
         $blog = $query->getBlogByID(" ");
     } else {
+        $get_num = sizeof($_GET);
         $blog = ($query->getBlogByID($_GET['id']))[0];
     }
 
