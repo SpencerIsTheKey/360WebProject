@@ -1,5 +1,5 @@
 <?php 
-    require "vendor/autoload.php"; 
+    require "../vendor/autoload.php"; 
     use App\SQLiteConnection as SQLiteConnection;
     use App\SQLiteCreateTable as SQLiteCreateTable;
     use App\SQLiteInsert as SQLiteInsert;

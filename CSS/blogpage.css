@@ -1,8 +1,10 @@
 header{
-    margin-left: 15em;
+    margin-left: 5em;
     background-color: #4d4646;
     padding-left: 1em;
     padding-right: 1em;
+    padding-top: 1em;
+    padding-bottom: 1em;
 }
 #right-sidebar{
     margin-left: 5em;
@@ -25,6 +27,10 @@ header{
     margin-left: 24em;
     padding-left: 1em;
     padding-right: 1em;
+}
+#commentContent{
+    height: 5em;
+    width: 35em;
 }
 .recentPost, .comment, .recentPost{
     border-top: 2px solid #7fcd91;
