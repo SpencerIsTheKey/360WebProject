@@ -8,21 +8,36 @@
 
     $blog = [];
     $articles = [];
-
+    $title;
+//if no parameters
     if(empty($_GET)){
         $blog = $query->getBlogByID(" ");
     } else {
-        $get_num = sizeof($_GET);
         $blog = ($query->getBlogByID($_GET['id']))[0];
-    }
+        //if the blog was found
+        if(!empty($blog)){
+            //if there is only one parameter
+            if(sizeof($_GET) == 1){
+                $title = "Recent Posts";
+                $articles = $query->getArticlesFromBlog($_GET['id'], TRUE, 5);
+                
+                //shorten the content fto the first paragraph
+                for ($i=0; $i < sizeof($articles); $i++){
+                    $articles[$i]['article_content'] = substr($articles[$i]['article_content'], 0, strpos($articles[$i]['article_content'], "<br>"));
+                }
+            } else {
+                $title = "Posts";
+                $articles = $query->articleListSearch($_GET['id'], $_GET['search'], $_GET['column']);
 
-    if(!empty($blog)){
-        $articles = $query->getArticlesFromBlog($_GET['id'], TRUE, 5);
-
-        for ($i=0; $i < sizeof($articles); $i++){
-            $articles[$i]['article_content'] = substr($articles[$i]['article_content'], 0, strpos($articles[$i]['article_content'], "<br>"));
+                //shorten the content fto the first paragraph
+                for ($i=0; $i < sizeof($articles); $i++){
+                    $articles[$i]['article_content'] = substr($articles[$i]['article_content'], 0, strpos($articles[$i]['article_content'], "<br>"));
+                }
+            }
         }
     }
+
+    
 
 
 ?>
@@ -60,16 +75,31 @@
     <header> <h1><?php echo $blog['blog_name'] ?> </h1> </header>
     <div id="main">
         <article id="right-sidebar">
+            <br>
+            <br>
+            <form action="" method="GET">
+                <input type="hidden" name="id" value="<?php echo $_GET['id'] ?>"/>
+                <input type="text" name="search"/>
+                <button type="submit"><img src="../CSS/images/search.png" style="height: 1.25em; width: 1.25em;"></button>
+                <br>
+                <br>
+                <select id="column" name="column">
+                    <option value="article_name">Article Name</option>
+                    <option value="pub_date">Publish Date</option>
+                    <option value="article_id">Article ID</option>
+                </select>
+            </form>
             
             <h2>About Me</h2>
             <?php echo $blog['about'] ?>
+            
         </article>
         <article id="center">
             <h1>Recent Posts</h1>
 
 
             <?php foreach($articles as $article) : ?>
-                <div class="recentPost">
+            <div class="recentPost">
                 <figure>
                     <img src="<?php echo $article['art_img'] ?>" alt="Post Photo">
                 </figure>

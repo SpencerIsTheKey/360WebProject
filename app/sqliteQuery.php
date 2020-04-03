@@ -34,6 +34,45 @@ class sqliteQuery{
         return $results;
     }
 
+    public function search($param){
+        $sql = "SELECT blog_id, blog_name, about, cover_img FROM blogs WHERE blog_name LIKE :param";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([
+            ":param"=>"%{$param}%",
+        ]);
+        $results = [];
+        while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)){
+            $results[] = [
+                'blog_id'=>$row['blog_id'],
+                'blog_name'=>$row['blog_name'],
+                'about'=>$row['about'],
+                'cover_img'=>$row['cover_img'],
+            ];
+        }
+        return $results;
+    }
+
+    public function articleListSearch($blog_id, $search_for, $search_column){
+        $sql = "SELECT article_id, article_name, article_content, art_img FROM articles WHERE parent_blog = :blog_id AND :search_column LIKE :search_for";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([
+            ':blog_id'=>$blog_id,
+            ':search_column'=>$search_column,
+            ':search_for'=>"%{$search_for}%",
+        ]);
+        $results = [];
+        while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)){
+            $results[] = [
+                'article_id' => $row['article_id'],
+                'article_name' => $row['article_name'],
+                'article_content' => $row['article_content'],
+                'art_img' => $row['art_img'],
+            ];
+        }
+        return $results;
+
+    }
+
     public function getBlogByID($blog_id){
         $sql = "SELECT blog_name, about FROM blogs WHERE blog_id = :blog_id";
         $stmt = $this->pdo->prepare($sql);
@@ -48,11 +87,6 @@ class sqliteQuery{
             ];
         }
         return $results;
-    }
-
-    public function articleListSearch($blog_id, $search_for, $search_in){
-        
-
     }
 
     public function getArticleByID($article_id){
