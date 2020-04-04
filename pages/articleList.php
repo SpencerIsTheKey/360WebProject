@@ -1,4 +1,14 @@
 <?php
+
+    function isLoggedIn(){
+        
+        if(isset($_POST['logged_in'])){  //if the logged_in key exists
+            return $_POST['logged_in'];      //return the value stored inside
+
+        } else {                        //if the logged_in key does not exist
+            return "";                      //return an empty string
+        }
+    }
     require "../vendor/autoload.php"; 
     use App\SQLiteConnection as SQLiteConnection;
     use App\SQLiteQuery as SQLiteQuery;
@@ -10,24 +20,22 @@
     $articles = [];
     $title;
 //if no parameters
-    if(empty($_GET)){
+    if(empty($_POST)){
         $blog = $query->getBlogByID(" ");
     } else {
-        $blog = ($query->getBlogByID($_GET['id']))[0];
+        $blog = ($query->getBlogByID($_POST['id']))[0];
         //if the blog was found
         if(!empty($blog)){
             //if there is only one parameter
-            if(sizeof($_GET) == 1){
-                $title = "Recent Posts";
-                $articles = $query->getArticlesFromBlog($_GET['id'], TRUE, 5);
+            if(sizeof($_POST) == 1){
+                $articles = $query->getArticlesFromBlog($_POST['id'], TRUE, 5);
                 
                 //shorten the content fto the first paragraph
                 for ($i=0; $i < sizeof($articles); $i++){
                     $articles[$i]['article_content'] = substr($articles[$i]['article_content'], 0, strpos($articles[$i]['article_content'], "<br>"));
                 }
             } else {
-                $title = "Posts";
-                $articles = $query->articleListSearch($_GET['id'], $_GET['search'], $_GET['column']);
+                $articles = $query->articleListSearch($_POST['id'], $_POST['search'], $_POST['column']);
 
                 //shorten the content fto the first paragraph
                 for ($i=0; $i < sizeof($articles); $i++){
@@ -52,24 +60,31 @@
 </head>
 
 <div id="navbar">
-    <div id="logo">
-        <a href="#"></a>
-            <img src="../CSS/images/Turtle.png">
-        </a>
+        <div id="logo">
+            <a href="./main.php"></a>
+                <img src="../CSS/images/Turtle.png">
+            </a>
+        </div>
+        <div id="title">
+            <h1>Talk About Turtles</h1>
+        </div>
+        <div id="searchbar">
+            <form action="./search.php" method="POST">
+                <input id="searchfield" name="search" type="text"/>
+                <button type ="submit" id="searchbtn"><img id="searchimg" src="../CSS/images/search.png"></button>
+            </form>
+        </div>
+        <div id="login">
+            <?php if (empty(isLoggedIn())){ ?>
+                <a class="linkbutton" href="./login.php">Login/Signup</a>
+            <?php } else { ?>
+                <form action="./accountManage.php" method="POST">
+                    <input type="hidden" name="logged_in" value="<?php echo isLoggedIn();?>"/>
+                    <button type="submit" class="linkbutton">Manage Account</button>
+                </form>
+            <?php } ?>
+        </div>
     </div>
-    <div id="title">
-        <h1>Talk About Turtles</h1>
-    </div>
-    <div id="searchbar">
-        <form action="./search.html">
-            <input id="search" type="text" style="height: 1.5em; width: 30em;"/>
-            <button type ="submit" style="background-color: #f5eaea;"><img src="../CSS/images/search.png" style="height: 1.25em; width: 1.25em;"></button>
-        </form>
-    </div>
-    <div id="login">
-        <a class="linkbutton" href="#">Login/Signup</a>
-    </div>
-</div>
 
 <body>
     <header> <h1><?php echo $blog['blog_name'] ?> </h1> </header>
@@ -78,7 +93,7 @@
             <br>
             <br>
             <form action="" method="GET">
-                <input type="hidden" name="id" value="<?php echo $_GET['id'] ?>"/>
+                <input type="hidden" name="id" value="<?php echo $_POST['id'] ?>"/>
                 <input type="text" name="search"/>
                 <button type="submit"><img src="../CSS/images/search.png" style="height: 1.25em; width: 1.25em;"></button>
                 <br>
@@ -92,10 +107,11 @@
             
             <h2>About Me</h2>
             <?php echo $blog['about'] ?>
+            <br>
             
         </article>
         <article id="center">
-            <h1>Recent Posts</h1>
+            <h1>Posts</h1>
 
 
             <?php foreach($articles as $article) : ?>

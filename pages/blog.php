@@ -1,10 +1,22 @@
 <?php
+
+function isLoggedIn(){
+        
+    if(isset($_POST['logged_in'])){  //if the logged_in key exists
+        return $_POST['logged_in'];      //return the value stored inside
+
+    } else {                        //if the logged_in key does not exist
+        return "";                      //return an empty string
+    }
+}
     require "../vendor/autoload.php"; 
     use App\SQLiteConnection as SQLiteConnection;
     use App\SQLiteQuery as SQLiteQuery;
+    use App\SQLiteUpdate as SQLiteUpdate;
 
     $conn = (new SQLiteConnection())-> connect();
     $query = new SQLiteQuery($conn);
+    $update = new SQLiteUpdate($conn);
 
     $blog = [];
     $articles = [];
@@ -17,6 +29,8 @@
 
     if(!empty($blog)){
         $articles = $query->getArticlesFromBlog($_GET['id'], TRUE, 5);
+        $update->addBlogHit($_GET['id']);
+        $top3 = $query->topPosts($_GET['id']);
 
         for ($i=0; $i < sizeof($articles); $i++){
             $articles[$i]['article_content'] = substr($articles[$i]['article_content'], 0, strpos($articles[$i]['article_content'], "<br>"));
@@ -36,35 +50,43 @@
 </head>
 
 <div id="navbar">
-    <div id="logo">
-        <a href="#"></a>
-            <img src="../CSS/images/Turtle.png">
-        </a>
+        <div id="logo">
+            <a href="./main.php"></a>
+                <img src="../CSS/images/Turtle.png">
+            </a>
+        </div>
+        <div id="title">
+            <h1>Talk About Turtles</h1>
+        </div>
+        <div id="searchbar">
+            <form action="./search.php" method="POST">
+                <input id="searchfield" name="search" type="text"/>
+                <button type ="submit" id="searchbtn"><img id="searchimg" src="../CSS/images/search.png"></button>
+            </form>
+        </div>
+        <div id="login">
+            <?php if (empty(isLoggedIn())){ ?>
+                <a class="linkbutton" href="./login.php">Login/Signup</a>
+            <?php } else { ?>
+                <form action="./accountManage.php" method="POST">
+                    <input type="hidden" name="logged_in" value="<?php echo isLoggedIn();?>"/>
+                    <button type="submit" class="linkbutton">Manage Account</button>
+                </form>
+            <?php } ?>
+        </div>
     </div>
-    <div id="title">
-        <h1>Talk About Turtles</h1>
-    </div>
-    <div id="searchbar">
-        <form action="./search.html">
-            <input id="search" type="text" style="height: 1.5em; width: 30em;"/>
-            <button type ="submit" style="background-color: #f5eaea;"><img src="../CSS/images/search.png" style="height: 1.25em; width: 1.25em;"></button>
-        </form>
-    </div>
-    <div id="login">
-        <a class="linkbutton" href="#">Login/Signup</a>
-    </div>
-</div>
 
 <body>
     <header> <h1><?php echo $blog['blog_name'] ?> </h1> </header>
     <div id="main">
         <article id="right-sidebar">
-            <br>
-            <a class="linkbutton" href="#">Most Popular Post</a>
-            <br><br>
-            <a class="linkbutton" href="#">Secondmost Popular Post</a>
-            <br><br>
-            <a class="linkbutton" href='#'>Thirdmost Popular Post</a>
+
+            <?php foreach ($top3 as $post): ?>
+                <br>
+                <a class="linkbutton" href="./blogArticle.php?id=<?php echo $post['article_id'] ?>"><?php echo $post['article_name'] ?></a>
+                <br>
+            <?php endforeach; ?>
+            
             <h2>About Me</h2>
             <?php echo $blog['about'] ?>
             <br>

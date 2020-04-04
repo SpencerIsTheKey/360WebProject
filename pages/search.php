@@ -1,4 +1,15 @@
 <?php
+
+    function isLoggedIn(){
+        
+        if(isset($_POST['logged_in'])){  //if the logged_in key exists
+            return $_POST['logged_in'];      //return the value stored inside
+
+        } else {                        //if the logged_in key does not exist
+            return "";                      //return an empty string
+        }
+    }
+
     require "../vendor/autoload.php"; 
     use App\SQLiteConnection as SQLiteConnection;
     use App\SQLiteQuery as SQLiteQuery;
@@ -6,12 +17,12 @@
     $conn = (new SQLiteConnection())-> connect();
     $query = new SQLiteQuery($conn);
 
-    $ss = [];
+    $blogs = [];
 
-    if(empty($_GET)){
+    if(empty($_POST)){
         $blogs = $query->search(" ");
     } else {
-        $blogs = $query->search($_GET['search']);
+        $blogs = $query->search($_POST['search']);
     }
 ?>
 
@@ -26,7 +37,7 @@
 
     <div id="navbar">
         <div id="logo">
-            <a href="#"></a>
+            <a href="./main.php"></a>
                 <img src="../CSS/images/Turtle.png">
             </a>
         </div>
@@ -34,19 +45,26 @@
             <h1>Talk About Turtles</h1>
         </div>
         <div id="searchbar">
-            <form action="./search.php" method="GET">
-                <input id="search" name="search" type="text" style="height: 1.5em; width: 30em;"/>
-                <button type ="submit" style="background-color: #f5eaea;"><img src="../CSS/images/search.png" style="height: 1.25em; width: 1.25em;"></button>
+            <form action="./search.php" method="POST">
+                <input id="searchfield" name="search" type="text"/>
+                <button type ="submit" id="searchbtn"><img id="searchimg" src="../CSS/images/search.png"></button>
             </form>
         </div>
         <div id="login">
-            <a class="linkbutton" href="#">Login/Signup</a>
+            <?php if (empty(isLoggedIn())){ ?>
+                <a class="linkbutton" href="./login.php">Login/Signup</a>
+            <?php } else { ?>
+                <form action="./accountManage.php" method="POST">
+                    <input type="hidden" name="logged_in" value="<?php echo isLoggedIn();?>"/>
+                    <button type="submit" class="linkbutton">Manage Account</button>
+                </form>
+            <?php } ?>
         </div>
     </div>
 
     <body>
         <div id="main">
-            <h1>Search Results</h1>
+            <h1>Search Results: <?php echo sizeof($blogs) ?> blogs found!</h1>
             <br>
             <?php foreach($blogs as $blog) : ?>
             <div class="recentPost">
@@ -59,7 +77,16 @@
                         <?php echo $blog['about'] ?>
                     </p>
                     <div class="right">
-                        <a href="./blog.php?id=<?php echo $article['blog_id'] ?>" class="linkbutton">Go to Blog</a>
+                        <form action="./articleList.php", method="POST">
+                            <input type="hidden" name="id" value="<?php echo $blog['blog_id'] ?>"/>
+                            <input type="hidden" name="logged_in" value="<?php echo isLoggedIn()?>"/>
+                            <button type="submit" class="linkbutton">Go to Article List</button>
+                        </form>
+                        <form action="./blog.php", method="POST">
+                            <input type="hidden" name="id" value="<?php echo $blog['blog_id'] ?>"/>
+                            <input type="hidden" name="logged_in" value="<?php echo isLoggedIn()?>"/>
+                            <button type="submit" class="linkbutton">Go to Blog</button>
+                        </form>
                     </div>
                 </div>
             </div>

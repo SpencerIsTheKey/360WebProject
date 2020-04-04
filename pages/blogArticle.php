@@ -1,10 +1,21 @@
 <?php
+    function isLoggedIn(){
+        
+        if(isset($_POST['logged_in'])){  //if the logged_in key exists
+            return $_POST['logged_in'];      //return the value stored inside
+
+        } else {                        //if the logged_in key does not exist
+            return "";                      //return an empty string
+        }
+    }
     require "../vendor/autoload.php"; 
     use App\SQLiteConnection as SQLiteConnection;
     use App\SQLiteQuery as SQLiteQuery;
+    use App\SQLiteUpdate as SQLiteUpdate;
 
     $conn = (new SQLiteConnection())-> connect();
     $query = new SQLiteQuery($conn);
+    $update = new SQLiteUpdate($conn);
 
     $article = [];
 
@@ -22,7 +33,10 @@
             'parent_blog' => "Confused...",
         ];
     } else {
+        $top3 = $query->topPosts($article['parent_blog']);
+        $blog = $query->getBlogByID($article['parent_blog'])[0];
         $article['parent_blog'] = $query->getParentBlogName($article['parent_blog']);
+        $update->addArticleHit($_GET['id']);
     }
 
 
@@ -38,24 +52,31 @@
 </head>
 
 <div id="navbar">
-    <div id="logo">
-        <a href="#"></a>
-            <img src="../CSS/images/Turtle.png">
-        </a>
+        <div id="logo">
+            <a href="./main.php"></a>
+                <img src="../CSS/images/Turtle.png">
+            </a>
+        </div>
+        <div id="title">
+            <h1>Talk About Turtles</h1>
+        </div>
+        <div id="searchbar">
+            <form action="./search.php" method="POST">
+                <input id="searchfield" name="search" type="text"/>
+                <button type ="submit" id="searchbtn"><img id="searchimg" src="../CSS/images/search.png"></button>
+            </form>
+        </div>
+        <div id="login">
+            <?php if (empty(isLoggedIn())){ ?>
+                <a class="linkbutton" href="./login.php">Login/Signup</a>
+            <?php } else { ?>
+                <form action="./accountManage.php" method="POST">
+                    <input type="hidden" name="logged_in" value="<?php echo isLoggedIn();?>"/>
+                    <button type="submit" class="linkbutton">Manage Account</button>
+                </form>
+            <?php } ?>
+        </div>
     </div>
-    <div id="title">
-        <h1>Talk About Turtles</h1>
-    </div>
-    <div id="searchbar">
-        <form action="./search.html">
-            <input id="search" type="text" style="height: 1.5em; width: 30em;"/>
-            <button type ="submit" style="background-color: #f5eaea;"><img src="../CSS/images/search.png" style="height: 1.25em; width: 1.25em;"></button>
-        </form>
-    </div>
-    <div id="login">
-        <a class="linkbutton" href="#">Login/Signup</a>
-    </div>
-</div>
 
 <body>
     <header>
@@ -63,21 +84,16 @@
     </header>
     <div id="main">
         <article id="right-sidebar">
+        <?php foreach ($top3 as $post): ?>
+                <br>
+                <a class="linkbutton" href="./blogArticle.php?id=<?php echo $post['article_id'] ?>"><?php echo $post['article_name'] ?></a>
+                <br>
+            <?php endforeach; ?>
             <br>
-            <a class="linkbutton" href="#">Most Popular Post</a>
-            <br><br>
-            <a class="linkbutton" href="#">Secondmost Popular Post</a>
-            <br><br>
-            <a class="linkbutton" href='#'>Thirdmost Popular Post</a>
+            <br>
+            <a class="linkbutton" href="./articleList.php?id=<?php echo $_GET['id'] ?>">Article List</a>
             <h2>About Me</h2>
-            <p>Your intro to Turtleblogging!</p>
-            <br>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sodales quis est in pretium. Cras in dui sed
-                odio pellentesque
-                vehicula non sed sapien. Quisque eget est pellentesque, rhoncus massa id, ultrices lectus. Donec aliquet
-                efficitur
-                condimentum. Pellentesque et erat arcu. Aliquam eget diam finibus, efficitur risus vitae, sagittis
-                sapien.</p>
+            <?php echo $blog['about'] ?>
         </article>
         <article id="center">
             <h2><?php echo $article['article_name'] ?></h2>
@@ -87,7 +103,7 @@
         <article id="commentSection">
             <div id="newComment">
                 <h3>New Comment</h3>
-                <form>
+                <form action="./addComment.php" method="post" target="_blank">
                     <textarea rows="5" cols="100" name="commentContent" placeholder="New comment..."></textarea>
                     <br>
                     <button type="submit">Submit Comment</button>
