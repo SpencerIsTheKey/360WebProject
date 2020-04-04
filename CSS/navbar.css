@@ -37,6 +37,17 @@ h2{
     padding: 0.5em;
     background-color: #5b5656;
 }
+#searchfield{
+    height: 1.5em;
+    width: 30em;
+}
+#searchimg{
+    height: 1.25em;
+    width: 1.25em;
+}
+#searchbtn{
+    background-color: #f5eaea;
+}
 #login{
     float:right;
     padding-top: 2em;

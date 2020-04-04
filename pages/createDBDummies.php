@@ -12,6 +12,9 @@
     //blogs
     $insert->insertBlog("Yah Boi", "Turtles blah blah blah TURblahTLES");
     $insert->insertBlog("TURboiTLES", "blah blah blah blah TURTLES blah blah blah blahty blahty BLAH");
+    $insert->insertBlog("The Black Turtle", "All BLACK tutrles, all the time. BLACK is the best color there ever is, ever will be");
+    $insert->insertBlog("Tickled Turtlish", "The touching tales of troubled turtles tumbling to the top");
+    $insert->insertBlog("Turtles suck", "The reason why turtles are the worst, least eveolved animals evar");
 
     //articles
     $insert->insertArticle("Try #1", 1, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque faucibus, risus sed dictum pretium, felis sapien feugiat turpis, et pretium tortor elit ac ligula. In lacus ipsum, euismod sit amet ex id, imperdiet auctor ligula. Curabitur vel justo non arcu laoreet consequat. Sed ullamcorper, justo id ultricies consectetur, neque quam tristique ante, sed eleifend augue lacus quis quam. Donec vel mauris id dolor vulputate dapibus. Suspendisse potenti. Integer ac varius felis. Etiam sit amet libero sit amet orci tincidunt ultrices vel quis mi. Mauris ante dui, ultrices sed neque at, vulputate pretium ante. Pellentesque nec dolor tincidunt, aliquam libero eu, tempus nibh. Vivamus eleifend libero nec dolor ornare egestas.<br><br>
