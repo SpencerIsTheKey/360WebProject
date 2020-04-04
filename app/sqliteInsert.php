@@ -10,11 +10,13 @@ class sqliteInsert{
         $this->pdo = $pdo;
     }
 
-    public function insertUser($username, $admin){
-        $sql = "INSERT INTO users(username, is_admin) VALUES(:username, :admin)";
+    public function insertUser($username, $password, $email, $admin){
+        $sql = "INSERT INTO users(username, password, email is_admin) VALUES(:username, :password, :email, :admin)";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([
             ":username" => $username,
+            ":password" => $password,
+            ":email" => $email,
             ":admin" => $admin,
         ]);
 
