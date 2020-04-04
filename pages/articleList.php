@@ -19,31 +19,27 @@
     $blog = [];
     $articles = [];
     $title;
-//if no parameters
-    if(empty($_POST)){
-        $blog = $query->getBlogByID(" ");
-    } else {
-        $blog = ($query->getBlogByID($_POST['id']))[0];
-        //if the blog was found
-        if(!empty($blog)){
-            //if there is only one parameter
-            if(sizeof($_POST) == 1){
-                $articles = $query->getArticlesFromBlog($_POST['id'], TRUE, 5);
-                
-                //shorten the content fto the first paragraph
-                for ($i=0; $i < sizeof($articles); $i++){
-                    $articles[$i]['article_content'] = substr($articles[$i]['article_content'], 0, strpos($articles[$i]['article_content'], "<br>"));
-                }
-            } else {
-                $articles = $query->articleListSearch($_POST['id'], $_POST['search'], $_POST['column']);
 
-                //shorten the content fto the first paragraph
-                for ($i=0; $i < sizeof($articles); $i++){
-                    $articles[$i]['article_content'] = substr($articles[$i]['article_content'], 0, strpos($articles[$i]['article_content'], "<br>"));
-                }
+    $blog = ($query->getBlogByID($_POST['id']))[0];
+    //if the blog was found
+    if(!empty($blog)){
+        //if there are no search parameters
+        if(sizeof($_POST) == 2){
+            $articles = $query->getArticlesFromBlog($_POST['id'], TRUE, 5);
+                
+            //shorten the content to the first paragraph
+            for ($i=0; $i < sizeof($articles); $i++){
+                $articles[$i]['article_content'] = substr($articles[$i]['article_content'], 0, strpos($articles[$i]['article_content'], "<br>"));                
+            }
+        } else {
+            $articles = $query->articleListSearch($_POST['id'], $_POST['search'], $_POST['column']);
+            //shorten the content fto the first paragraph
+            for ($i=0; $i < sizeof($articles); $i++){
+                $articles[$i]['article_content'] = substr($articles[$i]['article_content'], 0, strpos($articles[$i]['article_content'], "<br>"));
             }
         }
     }
+    
 
     
 
@@ -92,9 +88,9 @@
         <article id="right-sidebar">
             <br>
             <br>
-            <form action="" method="GET">
+            <form action="" method="POST">
                 <input type="hidden" name="id" value="<?php echo $_POST['id'] ?>"/>
-                <input type="text" name="search"/>
+                <input type="text" name="search" value="<?php if(isset($_POST['search'])){echo $_POST['search'];} else { echo '';} ?>"/>
                 <button type="submit"><img src="../CSS/images/search.png" style="height: 1.25em; width: 1.25em;"></button>
                 <br>
                 <br>
@@ -115,7 +111,7 @@
 
 
             <?php foreach($articles as $article) : ?>
-            <div class="recentPost">
+                <div class="recentPost">
                 <figure>
                     <img src="<?php echo $article['art_img'] ?>" alt="Post Photo">
                 </figure>
@@ -125,7 +121,11 @@
                         <?php echo $article['article_content'] ?>
                     </p>
                     <div class="right">
-                        <a href="./blogArticle.php?id=<?php echo $article["article_id"] ?>" class="linkbutton">Go to Post</a>
+                        <form action="./blogArticle.php", method="POST">
+                            <input type="hidden" name="id" value="<?php echo $article["article_id"] ?>"/>
+                            <input type="hidden" name="logged_in" value="<?php echo isLoggedIn()?>"/>
+                            <button type="submit" class="linkbutton">Go to Post</button>
+                        </form>
                     </div>
                 </div>
             </div>

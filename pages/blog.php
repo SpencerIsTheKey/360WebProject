@@ -21,16 +21,16 @@ function isLoggedIn(){
     $blog = [];
     $articles = [];
 
-    if(empty($_GET)){
+    if(empty($_POST)){
         $blog = $query->getBlogByID(" ");
     } else {
-        $blog = ($query->getBlogByID($_GET['id']))[0];
+        $blog = ($query->getBlogByID($_POST['id']))[0];
     }
 
     if(!empty($blog)){
-        $articles = $query->getArticlesFromBlog($_GET['id'], TRUE, 5);
-        $update->addBlogHit($_GET['id']);
-        $top3 = $query->topPosts($_GET['id']);
+        $articles = $query->getArticlesFromBlog($_POST['id'], TRUE, 5);
+        $update->addBlogHit($_POST['id']);
+        $top3 = $query->topPosts($_POST['id']);
 
         for ($i=0; $i < sizeof($articles); $i++){
             $articles[$i]['article_content'] = substr($articles[$i]['article_content'], 0, strpos($articles[$i]['article_content'], "<br>"));
@@ -80,10 +80,13 @@ function isLoggedIn(){
     <header> <h1><?php echo $blog['blog_name'] ?> </h1> </header>
     <div id="main">
         <article id="right-sidebar">
-
-            <?php foreach ($top3 as $post): ?>
                 <br>
-                <a class="linkbutton" href="./blogArticle.php?id=<?php echo $post['article_id'] ?>"><?php echo $post['article_name'] ?></a>
+            <?php foreach ($top3 as $post): ?>
+                <form action="./blogArticle.php", method="POST">
+                    <input type="hidden" name="id" value="<?php echo $post['article_id'] ?>"/>
+                    <input type="hidden" name="logged_in" value="<?php echo isLoggedIn()?>"/>
+                    <button type="submit" class="linkbutton"><?php echo $post['article_name'] ?></button>
+                </form>
                 <br>
             <?php endforeach; ?>
             
@@ -92,7 +95,11 @@ function isLoggedIn(){
             <br>
             <br>
             <br>
-            <a class="linkbutton" href="./articleList.php?id=<?php echo $_GET['id'] ?>">Article List</a>
+            <form action="./articleList.php", method="POST">
+                <input type="hidden" name="id" value="<?php echo $_POST['id'] ?>"/>
+                <input type="hidden" name="logged_in" value="<?php echo isLoggedIn()?>"/>
+                <button type="submit" class="linkbutton">Go to Article List</button>
+            </form>
         </article>
         <article id="center">
             <h1>Recent Posts</h1>
@@ -109,7 +116,11 @@ function isLoggedIn(){
                         <?php echo $article['article_content'] ?>
                     </p>
                     <div class="right">
-                        <a href="/360WebProject/pages/blogArticle.php?id=<?php echo $article["article_id"] ?>" class="linkbutton">Go to Post</a>
+                        <form action="./blogArticle.php", method="POST">
+                            <input type="hidden" name="id" value="<?php echo $article["article_id"] ?>"/>
+                            <input type="hidden" name="logged_in" value="<?php echo isLoggedIn()?>"/>
+                            <button type="submit" class="linkbutton">Go to Post</button>
+                        </form>
                     </div>
                 </div>
             </div>

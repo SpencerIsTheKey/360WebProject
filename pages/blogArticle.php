@@ -19,10 +19,10 @@
 
     $article = [];
 
-    if(empty($_GET)){
+    if(empty($_POST)){
         $article = $query->getArticleByID(" ");
     } else {
-        $article = ($query->getArticleByID($_GET['id']))[0];
+        $article = ($query->getArticleByID($_POST['id']))[0];
     }
 
     if(empty($article)){
@@ -36,7 +36,11 @@
         $top3 = $query->topPosts($article['parent_blog']);
         $blog = $query->getBlogByID($article['parent_blog'])[0];
         $article['parent_blog'] = $query->getParentBlogName($article['parent_blog']);
-        $update->addArticleHit($_GET['id']);
+
+        if(array_key_exists('commentContent', $_POST)){
+
+        }
+        $update->addArticleHit($_POST['id']);
     }
 
 
@@ -83,17 +87,27 @@
         <h1><?php echo $article['parent_blog'] ?></h1>
     </header>
     <div id="main">
-        <article id="right-sidebar">
-        <?php foreach ($top3 as $post): ?>
-                <br>
-                <a class="linkbutton" href="./blogArticle.php?id=<?php echo $post['article_id'] ?>"><?php echo $post['article_name'] ?></a>
+    <article id="right-sidebar">
+            <br>
+            <?php foreach ($top3 as $post): ?>
+                <form action="./blogArticle.php", method="POST">
+                    <input type="hidden" name="id" value="<?php echo $post['article_id'] ?>"/>
+                    <input type="hidden" name="logged_in" value="<?php echo isLoggedIn()?>"/>
+                    <button type="submit" class="linkbutton"><?php echo $post['article_name'] ?></button>
+                </form>
                 <br>
             <?php endforeach; ?>
-            <br>
-            <br>
-            <a class="linkbutton" href="./articleList.php?id=<?php echo $_GET['id'] ?>">Article List</a>
+            
             <h2>About Me</h2>
             <?php echo $blog['about'] ?>
+            <br>
+            <br>
+            <br>
+            <form action="./articleList.php", method="POST">
+                <input type="hidden" name="id" value="<?php echo $blog['blog_id'] ?>"/>
+                <input type="hidden" name="logged_in" value="<?php echo isLoggedIn()?>"/>
+                <button type="submit" class="linkbutton">Go to Article List</button>
+            </form>
         </article>
         <article id="center">
             <h2><?php echo $article['article_name'] ?></h2>
@@ -101,13 +115,19 @@
             <p><?php echo $article['article_content'] ?></p>
         </article>
         <article id="commentSection">
+
             <div id="newComment">
                 <h3>New Comment</h3>
-                <form action="./addComment.php" method="post" target="_blank">
-                    <textarea rows="5" cols="100" name="commentContent" placeholder="New comment..."></textarea>
+                <?php if(empty(isLoggedIn())){ ?>
+                    <a class="linkbutton" href="./login.php">Log in to comment</a>
                     <br>
-                    <button type="submit">Submit Comment</button>
-                </form>
+                <?php } else {?>
+                    <form method="post">
+                        <textarea rows="5" cols="100" name="commentContent" placeholder="New comment..."></textarea>
+                        <br>
+                        <button type="submit">Submit Comment</button>
+                    </form>
+                <?php } ?>
                 <br>
             </div>
             <div class="comment">

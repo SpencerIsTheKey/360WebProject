@@ -100,7 +100,7 @@ class sqliteQuery{
         return $results;
     }
     public function getBlogByID($blog_id){
-        $sql = "SELECT blog_name, about FROM blogs WHERE blog_id = :blog_id";
+        $sql = "SELECT blog_name, about, blog_id FROM blogs WHERE blog_id = :blog_id";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([
             ":blog_id" => $blog_id,
@@ -110,6 +110,7 @@ class sqliteQuery{
             $results[] = [
                 'blog_name' => $row['blog_name'],
                 'about' => $row['about'],
+                'blog_id'=> $row['blog_id']
             ];
         }
         return $results;

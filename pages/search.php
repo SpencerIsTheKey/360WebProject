@@ -20,7 +20,7 @@
     $blogs = [];
 
     if(empty($_POST)){
-        $blogs = $query->search(" ");
+        $blogs = $query->search("");
     } else {
         $blogs = $query->search($_POST['search']);
     }
