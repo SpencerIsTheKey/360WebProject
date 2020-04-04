@@ -21,7 +21,7 @@ class sqliteInsert{
         return $this->pdo->lastInsertId();
     }
     public function insertBlog($blog_name, $about){
-        $sql = "INSERT INTO blogs(blog_name, about) VALUES(:blog_name, :about)";
+        $sql = "INSERT INTO blogs(blog_name, about, hits) VALUES(:blog_name, :about, 0)";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([
             ":blog_name" => $blog_name,
@@ -31,7 +31,7 @@ class sqliteInsert{
         return $this->pdo->lastInsertId();
     }
     public function insertArticle($article_name, $parent_blog, $article_content){
-        $sql = "INSERT INTO articles(article_name, parent_blog, article_content, pub_date) VALUES(:article_name, :parent_blog, :article_content, :pub_date)";
+        $sql = "INSERT INTO articles(article_name, parent_blog, article_content, pub_date, hits) VALUES(:article_name, :parent_blog, :article_content, :pub_date, 0)";
         $stmt = $this->pdo->prepare($sql);
 
         $date = getdate();
