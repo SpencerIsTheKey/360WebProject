@@ -14,8 +14,8 @@
 }
 .popBlog{
     border-top: 2px solid #7fcd91;
-    overflow: auto;
-    height: auto;
+    overflow: hidden;
+    height: fit-content;
 }
 figure{
     position: relative;
@@ -27,4 +27,8 @@ figure{
 .right{
     float: right;
     margin-right: 2em;
+}
+form{
+    display: inline-block;
+    padding-bottom: 1em;
 }

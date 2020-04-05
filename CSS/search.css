@@ -22,4 +22,5 @@ figure{
 }
 form{
     display: inline-block;
+    padding-bottom: 1em;
 }

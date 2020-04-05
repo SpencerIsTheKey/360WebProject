@@ -51,3 +51,6 @@ figure{
     float: right;
     margin-right: 2em;
 }
+.username, .date{
+    display: inline-block;
+}
