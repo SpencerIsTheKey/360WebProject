@@ -12,12 +12,16 @@
     use App\SQLiteConnection as SQLiteConnection;
     use App\SQLiteQuery as SQLiteQuery;
     use App\SQLiteUpdate as SQLiteUpdate;
+    use App\SQLiteInsert as SQliteInsert;
+
 
     $conn = (new SQLiteConnection())-> connect();
     $query = new SQLiteQuery($conn);
     $update = new SQLiteUpdate($conn);
+    $insert = new SQLiteInsert($conn);
 
     $article = [];
+    $test = "";
 
     if(empty($_POST)){
         $article = $query->getArticleByID(" ");
@@ -33,15 +37,16 @@
             'parent_blog' => "Confused...",
         ];
     } else {
+        if(array_key_exists('comment_content', $_POST)){
+            $insert->insertComment($_POST['id'], $_POST['logged_in'], $_POST['comment_content']);
+        } else {
+            $update->addArticleHit($_POST['id']);
+
+        }
         $top3 = $query->topPosts($article['parent_blog']);
         $blog = $query->getBlogByID($article['parent_blog'])[0];
         $comments = $query->getArticleComments($_POST['id']);
         $article['parent_blog'] = $query->getParentBlogName($article['parent_blog']);
-
-        if(array_key_exists('commentContent', $_POST)){
-            $query->insertComment($_POST['id'], $_POST['logged_in'], $_POST['comment_content']);
-        }
-        $update->addArticleHit($_POST['id']);
     }
 
 
@@ -124,13 +129,16 @@
                     <br>
                 <?php } else {?>
                     <form method="post">
-                        <textarea rows="5" cols="100" name="commentContent" placeholder="New comment..."></textarea>
+                        <input type="hidden" name="id" value="<?php echo $_POST['id']?>"/>
+                        <input type="hidden" name="logged_in" value="<?php echo isLoggedIn()?>"/>
+                        <textarea rows="5" cols="100" name="comment_content" placeholder="New comment..."></textarea>
                         <br>
                         <button type="submit">Submit Comment</button>
                     </form>
                 <?php } ?>
                 <br>
             </div>
+            <?php echo $test?>
             <?php foreach($comments as $comment) : ?>
             <div class="comment">
                 <figure>
