@@ -82,8 +82,16 @@
                         <?php echo $blog['about'] ?>
                     </p>
                     <div class="right">
-                        <a href="./articleList.php?id=<?php echo $blog['blog_id'] ?>" class="linkbutton">Go to Article List</a>
-                        <a href="./blog.php?id=<?php echo $blog['blog_id'] ?>" class="linkbutton">Go to Blog</a>
+                        <form action="./articleList.php", method="POST">
+                            <input type="hidden" name="id" value="<?php echo $blog['blog_id'] ?>"/>
+                            <input type="hidden" name="logged_in" value="<?php echo isLoggedIn()?>"/>
+                            <button type="submit" class="linkbutton">Go to Article List</button>
+                        </form>
+                        <form action="./blog.php", method="POST">
+                            <input type="hidden" name="id" value="<?php echo $blog['blog_id'] ?>"/>
+                            <input type="hidden" name="logged_in" value="<?php echo isLoggedIn()?>"/>
+                            <button type="submit" class="linkbutton">Go to Blog</button>
+                        </form>
                     </div>
                 </div>
             </div>

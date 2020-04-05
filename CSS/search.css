@@ -5,7 +5,7 @@
 .result{
     border-top: 2px solid #7fcd91;
     background-color: #4d4646;
-    overflow: auto;
+    overflow-y: hidden;
     height: auto;
 }
 figure{
@@ -18,4 +18,9 @@ figure{
 .right{
     float: right;
     margin-right: 2em;
+    white-space: nowrap;
+}
+form{
+    display: inline-block;
+    padding-bottom: 1em;
 }

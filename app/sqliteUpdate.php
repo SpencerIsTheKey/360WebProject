@@ -48,6 +48,14 @@ class sqliteUpdate{
             ":user_id" => $user_id,
         ]);
     }
+    public function updateUserImg($user_id, $profile_img){
+        $sql = "UPDATE users profile_img = :profile_img WHERE user_id = :user_id";
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute([
+            ":profile_img" => $profile_img,
+            ":user_id" => $user_id,
+        ]);
+    }
     public function makeAdmin($user_id){
         $sql = "UPDATE users SET is_admin = 1 WHERE user_id = :user_id";
         $stmt = $this->pdo->prepare($sql);

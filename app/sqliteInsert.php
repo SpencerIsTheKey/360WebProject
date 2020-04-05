@@ -10,11 +10,13 @@ class sqliteInsert{
         $this->pdo = $pdo;
     }
 
-    public function insertUser($username, $admin){
-        $sql = "INSERT INTO users(username, is_admin) VALUES(:username, :admin)";
+    public function insertUser($username, $password, $email, $admin){
+        $sql = "INSERT INTO users(username, password, email, is_admin) VALUES(:username, :password, :email, :admin)";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([
             ":username" => $username,
+            ":password" => $password,
+            ":email" => $email,
             ":admin" => $admin,
         ]);
 
@@ -35,7 +37,7 @@ class sqliteInsert{
         $stmt = $this->pdo->prepare($sql);
 
         $date = getdate();
-        $datestring = "$date[year]-$date[mon]-$date[mday]";
+        $datestring = "$date[year]-$date[mon]-$date[mday] " . date("h:i");
 
         $stmt->execute([
             ":article_name" => $article_name,
@@ -46,14 +48,18 @@ class sqliteInsert{
         
         return $this->pdo->lastInsertId();
     }
-    public function insertComment($replied_to, $article_id, $user_id, $comment_content){
-        $sql = "INSERT INTO comments(replied_to, article_id, user_id, comment_content) VALUES(:replied_to, :article_id, :user_id, :comment_content)";
+    public function insertComment($article_id, $user_id, $comment_content){
+        $sql = "INSERT INTO comments( article_id, user_id, comment_content, comment_date) VALUES(:article_id, :user_id, :comment_content, :comment_date)";
         $stmt = $this->pdo->prepare($sql);
+
+        $date = getdate();
+        $datestring = "$date[year]-$date[mon]-$date[mday] " . date("h:i");
+
         $stmt->execute([
-            ":replied" => $replied_to,
             ":article_id" => $article_id,
             ":user_id" => $user_id,
             ":comment_content" => $comment_content,
+            ":comment_date" => $datestring,
         ]);
 
         return $this->pdo->lastInsertId();

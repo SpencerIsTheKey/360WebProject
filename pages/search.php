@@ -67,7 +67,7 @@
             <h1>Search Results: <?php echo sizeof($blogs) ?> blogs found!</h1>
             <br>
             <?php foreach($blogs as $blog) : ?>
-            <div class="recentPost">
+            <div class="result">
                 <figure>
                     <img src="<?php echo $blog['cover_img'] ?>" alt="Blog Photo">
                 </figure>

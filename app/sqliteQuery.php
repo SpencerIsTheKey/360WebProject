@@ -155,14 +155,14 @@ class sqliteQuery{
         $stmt;
 
         if($YNLimit){
-            $sql = "SELECT article_id, article_name, article_content, art_img, pub_date FROM articles WHERE parent_blog = :blog_id ORDER BY date(pub_date) DESC LIMIT :limit_amt";
+            $sql = "SELECT article_id, article_name, article_content, art_img, pub_date FROM articles WHERE parent_blog = :blog_id ORDER BY datetime(pub_date) DESC LIMIT :limit_amt";
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute([
                 ":blog_id" => $blog_id,
                 ":limit_amt" => $limit_amt,
             ]);
         } else {
-            $sql = "SELECT article_id, article_name, article_content, art_img, pub_date FROM articles WHERE parent_blog = :blog_id ORDER BY date(pub_date) DESC";
+            $sql = "SELECT article_id, article_name, article_content, art_img, pub_date FROM articles WHERE parent_blog = :blog_id ORDER BY datetime(pub_date) DESC";
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute([
                 ":blog_id" => $blog_id,
@@ -175,6 +175,24 @@ class sqliteQuery{
                 'article_name' => $row['article_name'],
                 'article_content' => $row['article_content'],
                 'art_img' => $row['art_img'],
+            ];
+        }
+        return $results;
+    }
+
+    public function getArticleComments($article_id){
+        $sql = "SELECT c.comment_content, c.user_id, u.username, u.profile_img, c.comment_date, c.article_id FROM comments as c INNER JOIN users as u ON c.user_id=u.user_id WHERE c.article_id = :article_id ORDER BY datetime(c.comment_date) ASC";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([
+            ':article_id'=>$article_id,
+        ]);
+        $results = [];
+        while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)){
+            $results[] = [
+                'comment_content' => $row['comment_content'],
+                'user_id' => $row['user_id'],
+                'username' => $row['username'],
+                'comment_date' => $row['comment_date'],
             ];
         }
         return $results;

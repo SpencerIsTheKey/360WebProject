@@ -34,7 +34,7 @@ header{
 }
 .recentPost, .comment, .recentPost{
     border-top: 2px solid #7fcd91;
-    overflow: auto;
+    overflow-y: hidden;
     height: auto;
 }
 .comment p{
@@ -50,4 +50,7 @@ figure{
 .right{
     float: right;
     margin-right: 2em;
+}
+.username, .date{
+    display: inline-block;
 }
