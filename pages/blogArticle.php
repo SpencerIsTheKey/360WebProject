@@ -35,10 +35,11 @@
     } else {
         $top3 = $query->topPosts($article['parent_blog']);
         $blog = $query->getBlogByID($article['parent_blog'])[0];
+        $comments = $query->getArticleComments($_POST['id']);
         $article['parent_blog'] = $query->getParentBlogName($article['parent_blog']);
 
         if(array_key_exists('commentContent', $_POST)){
-
+            $query->insertComment($_POST['id'], $_POST['logged_in'], $_POST['comment_content']);
         }
         $update->addArticleHit($_POST['id']);
     }
@@ -130,39 +131,20 @@
                 <?php } ?>
                 <br>
             </div>
+            <?php foreach($comments as $comment) : ?>
             <div class="comment">
                 <figure>
-                    <img src="../CSS/images/userPrfile.jpg" alt="User Profile Pic">
+                    <img src="<?php echo $comment['profile_img'] ?>" alt="Profile Photo">
                 </figure>
-                <p> 
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque faucibus, risus sed dictum pretium, 
-                    felis sapien feugiat turpis, et pretium tortor elit ac ligula. In lacus ipsum, euismod sit amet ex id, 
-                    imperdiet auctor ligula. Curabitur vel justo non arcu laoreet consequat. Sed ullamcorper, justo id ultricies 
-                    consectetur, neque quam tristique ante, sed eleifend augue lacus quis quam. Donec vel mauris id dolor vulputate 
-                    dapibus. Suspendisse potenti. Integer ac varius felis.
-                </p>
+                <div>
+                    <span>
+                        <h2 class="username"><?php echo $comment['username']?></h2>
+                        <h6 class="date"><?php echo $comment['comment_date'] ?></h6>
+                    </span>
+                    <p><?php echo $comment['comment_content'] ?></p>
+                </div>
             </div>
-            <div class="comment">
-                <figure>
-                    <img src="../CSS/images/userPrfile.jpg" alt="User Profile Pic">
-                </figure>
-                <p> 
-                    Etiam sit amet libero sit amet orci tincidunt ultrices 
-                    vel quis mi. Mauris ante dui, ultrices sed neque at, vulputate pretium ante. Pellentesque nec dolor tincidunt, 
-                    aliquam libero eu, tempus nibh. Vivamus eleifend libero nec dolor ornare egestas.
-                </p>
-            </div>
-            <div class="comment">
-                <figure>
-                    <img src="../CSS/images/userPrfile.jpg" alt="User Profile Pic">
-                </figure>
-                <p> 
-                    Quisque dignissim felis non mauris imperdiet hendrerit. In erat justo, consequat sit amet mi in, ornare 
-                    sollicitudin tellus. Donec blandit tincidunt eros, et interdum nibh posuere sit amet. Vivamus quis 
-                    congue elit, et malesuada tortor. Suspendisse potenti. Quisque dignissim rhoncus nisl id aliquet. Donec 
-                    maximus a risus consequat porta.
-                </p>
-            </div>
+            <?php endforeach; ?>
         </article>
     </div>
 </body>

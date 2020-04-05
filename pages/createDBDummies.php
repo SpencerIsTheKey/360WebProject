@@ -1,7 +1,6 @@
 <?php 
     require "../vendor/autoload.php"; 
     use App\SQLiteConnection as SQLiteConnection;
-    use App\SQLiteCreateTable as SQLiteCreateTable;
     use App\SQLiteInsert as SQLiteInsert;
     use App\SQLiteQuery as SQLiteQuery;
 
@@ -15,6 +14,11 @@
     $insert->insertBlog("The Black Turtle", "All BLACK tutrles, all the time. BLACK is the best color there ever is, ever will be");
     $insert->insertBlog("Tickled Turtlish", "The touching tales of troubled turtles tumbling to the top");
     $insert->insertBlog("Turtles suck", "The reason why turtles are the worst, least eveolved animals evar");
+
+    //users
+    $insert->insertUser('user1', 'user1', 'user1@email.com', FALSE);
+    $insert->insertUser('user2', 'user2', 'user2@email.com', FALSE);
+    $insert->insertUser('user3', 'user3', 'user3@email.com', FALSE);
 
     //articles
     $insert->insertArticle("Try #1", 1, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque faucibus, risus sed dictum pretium, felis sapien feugiat turpis, et pretium tortor elit ac ligula. In lacus ipsum, euismod sit amet ex id, imperdiet auctor ligula. Curabitur vel justo non arcu laoreet consequat. Sed ullamcorper, justo id ultricies consectetur, neque quam tristique ante, sed eleifend augue lacus quis quam. Donec vel mauris id dolor vulputate dapibus. Suspendisse potenti. Integer ac varius felis. Etiam sit amet libero sit amet orci tincidunt ultrices vel quis mi. Mauris ante dui, ultrices sed neque at, vulputate pretium ante. Pellentesque nec dolor tincidunt, aliquam libero eu, tempus nibh. Vivamus eleifend libero nec dolor ornare egestas.<br><br>
@@ -88,6 +92,11 @@
     
     Cras at sagittis libero. Cras laoreet facilisis dictum. Phasellus lectus dolor, eleifend sit amet massa id, suscipit tincidunt libero. Fusce cursus congue dui. Quisque id diam blandit, suscipit velit ac, bibendum nisi. Maecenas cursus eros in magna sagittis, sit amet convallis augue tincidunt. In convallis ex at arcu pellentesque, nec lacinia nisl euismod. Vivamus at libero enim. Nullam quam mi, auctor ac interdum sed, pretium blandit leo.");
 
+
+    //comments
+    $insert->insertComment(2, 1, 'hurp-a-durp i thikn this is great');
+    $insert->insertComment(1, 1, 'blah blah blah Im just trying this out cuz Im bored');
+    $insert->insertComment(2, 2, "go home you're drunk");
 
     $dummyBlogs = $query -> getAllBlogs();
     $dummyArticles = $query -> getAllArticles();
