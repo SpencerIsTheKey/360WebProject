@@ -55,6 +55,20 @@ class sqliteQuery{
         }
         return $results;
     }
+    public function getUserBlog($user_id){
+        $sql = "SELECT blog_id FROM users WHERE user_id = :user_id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([
+            ":blog_id"=>$blog_id,
+        ]);
+        $results = [];
+        while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)){
+            $results[] = [
+                'blog_id'=>$row['blog_id'],
+            ];
+        }
+        return $results;
+    }
     public function mainpage(){
         $sql = "SELECT blog_id, blog_name, about, cover_img FROM blogs ORDER BY hits DESC LIMIT 4";
         $stmt = $this->pdo->prepare($sql);

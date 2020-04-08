@@ -14,12 +14,15 @@ require "../vendor/autoload.php";
  
 // Define variables and initialize with empty values
 
-$username = $password = $confirm_password = $email = "";
-$username_err = $password_err = $confirm_password_err = $email_err= "";
- //reference: https://www.tutorialrepublic.com/php-tutorial/php-mysql-login-system.php?fbclid=IwAR0_2m59t2spcHoN3N7ol-AKk376a3pSmjs1L8_kwhyH1evUh0TSPdv76XE
-// Processing form data when form is submitted
-if($_SERVER["REQUEST_METHOD"] == "POST"){
 
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+  //blogname
+  //description
+  $blogname = trim($_POST["blogname"]);
+  $description = trim($_POST["description"]);
+      
+        $insert->insertBlog($blog_name, $description);
+        header('Location: blog.php');
 }
 ?>
 <!DOCTYPE html>
