@@ -41,6 +41,20 @@ class sqliteQuery{
         }
         return $results;
     }
+    public function getUserID($username){
+        $sql = "SELECT user_id FROM users WHERE username = :username";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([
+            ":username"=>$username,
+        ]);
+        $results = [];
+        while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)){
+            $results[] = [
+                'user_id'=>$row['user_id'],
+            ];
+        }
+        return $results;
+    }
     public function mainpage(){
         $sql = "SELECT blog_id, blog_name, about, cover_img FROM blogs ORDER BY hits DESC LIMIT 4";
         $stmt = $this->pdo->prepare($sql);
