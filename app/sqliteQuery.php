@@ -55,8 +55,8 @@ class sqliteQuery{
         }
         return $results;
     }
-    public function getUserBlog($blog_id){
-        $sql = "SELECT blog_id FROM users WHERE blog_id = :blog_id";
+    public function getUserBlog($user_id){
+        $sql = "SELECT blog_id FROM users WHERE user_id = :user_id";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([
             ":blog_id"=>$blog_id,
