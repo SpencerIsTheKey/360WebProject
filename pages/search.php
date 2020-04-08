@@ -52,11 +52,10 @@
         </div>
         <div id="login">
             <?php if (empty(isLoggedIn())){ ?>
-                <form action="./search.php" method="POST">
-                <input type="hidden" name="logged_in" value="<?php echo isLoggedIn();?>"/>
-                <input id="searchfield" name="search" type="text"/>
-                <button type ="submit" id="searchbtn"><img id="searchimg" src="../CSS/images/search.png"></button>
-            </form>
+                <form action="./login.php" method="POST">
+                    <input type="hidden" name="logged_in" value="<?php echo isLoggedIn();?>"/>
+                    <button type="submit" class="linkbutton">Login/Signup</button>
+                </form>
             <?php } else { ?>
                 <form action="./accountManage.php" method="POST">
                     <input type="hidden" name="logged_in" value="<?php echo isLoggedIn();?>"/>

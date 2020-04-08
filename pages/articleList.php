@@ -73,7 +73,10 @@
         </div>
         <div id="login">
             <?php if (empty(isLoggedIn())){ ?>
-                <a class="linkbutton" href="./login.php">Login/Signup</a>
+                <form action="./login.php" method="POST">
+                    <input type="hidden" name="logged_in" value="<?php echo isLoggedIn();?>"/>
+                    <button type="submit" class="linkbutton">Login/Signup</button>
+                </form>
             <?php } else { ?>
                 <form action="./accountManage.php" method="POST">
                     <input type="hidden" name="logged_in" value="<?php echo isLoggedIn();?>"/>
