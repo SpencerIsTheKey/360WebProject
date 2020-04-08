@@ -66,6 +66,7 @@
         </div>
         <div id="searchbar">
             <form action="./search.php" method="POST">
+                <input type="hidden" name="logged_in" value="<?php echo isLoggedIn();?>"/>
                 <input id="searchfield" name="search" type="text"/>
                 <button type ="submit" id="searchbtn"><img id="searchimg" src="../CSS/images/search.png"></button>
             </form>
