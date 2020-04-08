@@ -16,6 +16,31 @@ class sqliteQuery{
         }
         return $results;
     }
+    public function getUserPassword($username){
+        $sql = "SELECT username FROM users";
+        $stmt = $this->pdo->query();
+        $results = [];
+        while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)){
+            $results[] = [
+                'username'=>$row['username'],
+            ];
+        }
+        return $results;
+    }
+    public function getUsernames(){
+        $sql = "SELECT password FROM users WHERE username = :username";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([
+            ":username"=>$username,
+        ]);
+        $results = [];
+        while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)){
+            $results[] = [
+                'password'=>$row['password'],
+            ];
+        }
+        return $results;
+    }
     public function mainpage(){
         $sql = "SELECT blog_id, blog_name, about, cover_img FROM blogs ORDER BY hits DESC LIMIT 4";
         $stmt = $this->pdo->prepare($sql);
