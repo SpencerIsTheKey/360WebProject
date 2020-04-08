@@ -1,15 +1,24 @@
 <?php
 // Initialize the session
 session_start();
+
+function isLoggedIn(){
+    
+    if(isset($_SESSION['logged_in'])){  //if the logged_in key exists
+        return $_SESSION['logged_in'];      //return the value stored inside
+
+    } else {                        //if the logged_in key does not exist
+        $_SESSION['logged_in'] = "";    //set as empty string
+        return "";                      //return an empty string
+    }
+}
  
 // Check if the user is already logged in, if yes then redirect him to welcome page
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
     header("location: main.html");
     exit;
 }
- 
-// Include config file
-require_once "config.php";
+
  
 // Define variables and initialize with empty values
 $username = $password = "";
@@ -92,24 +101,34 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   
 </head>
 <div id="navbar">
-    <div id="logo">
-        <a href="#"></a>
-            <img src="../CSS/images/Turtle.png">
-        </a>
+        <div id="logo">
+            <form action="./main.php" method="POST">
+                <div id=logo_btn>
+                    <input type="image" src="../CSS/images/Turtle.png" alt="Main" width="75" height="75">
+                </div>
+            </form>
+        </div>
+        <div id="title">
+            <h1>Talk About Turtles</h1>
+        </div>
+        <div id="searchbar">
+            <form action="./search.php" method="POST">
+                <input id="searchfield" name="search" type="text"/>
+                <button type ="submit" id="searchbtn"><img id="searchimg" src="../CSS/images/search.png"></button>
+            </form>
+        </div>
+        <div id="login">
+            <?php if (empty(isLoggedIn())){ ?>
+                <form action="./login.php" method="POST">
+                    <button type="submit" class="linkbutton">Login/Signup</button>
+                </form>
+            <?php } else { ?>
+                <form action="./accountManage.php" method="POST">
+                    <button type="submit" class="linkbutton">Manage Account</button>
+                </form>
+            <?php } ?>
+        </div>
     </div>
-    <div id="title">
-        <h1>Talk About Turtles</h1>
-    </div>
-    <div id="searchbar">
-      <form action="./search.html">
-        <input id="search" type="text" style="height: 1.5em; width: 30em;"/>
-        <button type ="submit" style="background-color: #f5eaea;"><img src="../CSS/images/search.png" style="height: 1.25em; width: 1.25em;"></button>
-    </form>
-    </div>
-    <div id="login">
-        <a class="linkbutton" href="#">Login/Signup</a>
-    </div>
-</div>
 <body>
     
 <form id ="forming" name="myForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
