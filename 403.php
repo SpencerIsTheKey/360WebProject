@@ -8,7 +8,7 @@
 <head>
     <title>Talk About Turtles</title>
     <link rel="stylesheet" href="./CSS/navbar.css">
-    <link rel="stylesheet" href="./CSS/blogpage.css">
+    <link rel="stylesheet" href="./CSS/search.css">
 </head>
 
 <div id="navbar">
