@@ -64,8 +64,9 @@
       Article Title:
       <input type="text" name="articletitle" placeholder="Enter an article title" /> <br />
       <br />
-      <textarea name = "content" rows ="50" cols = "60">
-     
+      Enter the content of your article:<br>
+      <textarea name = "content" rows ="50" cols = "60"></textarea>
+     <br>
       <input type="submit" value = "Submit" /> <input type="reset" />
     </fieldset>
   </form>

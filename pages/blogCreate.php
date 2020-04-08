@@ -1,3 +1,27 @@
+<?php
+require "../vendor/autoload.php"; 
+  use App\SQLiteConnection as SQLiteConnection;
+  use App\SQLiteQuery as SQLiteQuery;
+  use App\SQLiteUpdate as SQLiteUpdate;
+  use App\SQLiteInsert as SQliteInsert;
+  use App\SQLiteDelete as SQLiteDelete;
+
+  $conn = (new SQLiteConnection())-> connect();
+  $query = new SQLiteQuery($conn);
+  $update = new SQLiteUpdate($conn);
+  $insert = new SQLiteInsert($conn);
+  $delete = new SQLiteDelete($conn);
+ 
+// Define variables and initialize with empty values
+
+$username = $password = $confirm_password = $email = "";
+$username_err = $password_err = $confirm_password_err = $email_err= "";
+ //reference: https://www.tutorialrepublic.com/php-tutorial/php-mysql-login-system.php?fbclid=IwAR0_2m59t2spcHoN3N7ol-AKk376a3pSmjs1L8_kwhyH1evUh0TSPdv76XE
+// Processing form data when form is submitted
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -64,12 +88,14 @@
       Blog Name:
       <input type="text" name="blogname" placeholder="Enter the name for your blog" /> <br />
       <br />
+      Choose a profile image:
       <input type="file"
       id="avatar" name="avatar"
       accept="image/png, image/jpeg">
       <br />
-   <textarea id = "description" rows ="4" cols = "50">
-     
+      Describe your blog here:<br>
+   <textarea id = "description" rows ="4" cols = "50"></textarea>
+     <br>
       <input type="submit" /> <input type="reset" />
     </fieldset>
   </form>

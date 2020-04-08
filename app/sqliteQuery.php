@@ -27,7 +27,7 @@ class sqliteQuery{
         }
         return $results;
     }
-    public function getUserPassword(){
+    public function getUserPassword($username){
         $sql = "SELECT password FROM users WHERE username = :username";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([
