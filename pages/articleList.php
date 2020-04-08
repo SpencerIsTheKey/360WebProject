@@ -26,7 +26,7 @@
     //if the blog was found
     if(!empty($blog)){
         //if there are no search parameters
-        if(sizeof($_POST) == 2){
+        if(sizeof($_POST) == 1){
             $articles = $query->getArticlesFromBlog($_POST['id'], TRUE, 5);
                 
             //shorten the content to the first paragraph
@@ -59,9 +59,11 @@
 
 <div id="navbar">
         <div id="logo">
-            <a href="./main.php"></a>
-                <img src="../CSS/images/Turtle.png">
-            </a>
+            <form action="./main.php" method="POST">
+                <div id=logo_btn>
+                    <input type="image" src="../CSS/images/Turtle.png" alt="Main" width="75" height="75">
+                </div>
+            </form>
         </div>
         <div id="title">
             <h1>Talk About Turtles</h1>

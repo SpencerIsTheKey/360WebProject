@@ -33,11 +33,13 @@
     <link rel="stylesheet" href="../CSS/navbar.css">
     <link rel="stylesheet" href="../CSS/homepage.css">
 </head>
-<div id="navbar">
+    <div id="navbar">
         <div id="logo">
-            <a href="./main.php"></a>
-                <img src="../CSS/images/Turtle.png">
-            </a>
+            <form action="./main.php" method="POST">
+                <div id=logo_btn>
+                    <input type="image" src="../CSS/images/Turtle.png" alt="Main" width="75" height="75">
+                </div>
+            </form>
         </div>
         <div id="title">
             <h1>Talk About Turtles</h1>
