@@ -47,6 +47,20 @@ class sqliteQuery{
         }
         return $results;
     }
+    public function getUserByUsername($username){
+        $sql = "SELECT  username, password FROM users WHERE username = :username";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt -> execute([
+            ":username"=>$username,
+        ]);
+        $results = [];
+        while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)){
+            $results[] = [
+                'username' => $row['username'],
+            ];
+        }
+        return $results;
+    }
     public function search($param){
         $sql = "SELECT blog_id, blog_name, about, cover_img FROM blogs WHERE blog_name LIKE :param ORDER BY hits DESC";
         $stmt = $this->pdo->prepare($sql);
