@@ -1,10 +1,13 @@
 <?php
+    session_start();
+
     function isLoggedIn(){
         
-        if(isset($_POST['logged_in'])){  //if the logged_in key exists
-            return $_POST['logged_in'];      //return the value stored inside
+        if(isset($_SESSION['logged_in'])){  //if the logged_in key exists
+            return $_SESSION['logged_in'];      //return the value stored inside
 
         } else {                        //if the logged_in key does not exist
+            $_SESSION['logged_in'] = "";    //set as empty string
             return "";                      //return an empty string
         }
     }
@@ -38,7 +41,7 @@
         ];
     } else {
         if(array_key_exists('comment_content', $_POST)){
-            $insert->insertComment($_POST['id'], $_POST['logged_in'], $_POST['comment_content']);
+            $insert->insertComment($_POST['id'], $_SESSION['logged_in'], $_POST['comment_content']);
         } else {
             $update->addArticleHit($_POST['id']);
 
@@ -72,7 +75,6 @@
         </div>
         <div id="searchbar">
             <form action="./search.php" method="POST">
-                <input type="hidden" name="logged_in" value="<?php echo isLoggedIn();?>"/>
                 <input id="searchfield" name="search" type="text"/>
                 <button type ="submit" id="searchbtn"><img id="searchimg" src="../CSS/images/search.png"></button>
             </form>
@@ -80,12 +82,10 @@
         <div id="login">
             <?php if (empty(isLoggedIn())){ ?>
                 <form action="./login.php" method="POST">
-                    <input type="hidden" name="logged_in" value="<?php echo isLoggedIn();?>"/>
                     <button type="submit" class="linkbutton">Login/Signup</button>
                 </form>
             <?php } else { ?>
                 <form action="./accountManage.php" method="POST">
-                    <input type="hidden" name="logged_in" value="<?php echo isLoggedIn();?>"/>
                     <button type="submit" class="linkbutton">Manage Account</button>
                 </form>
             <?php } ?>
@@ -102,7 +102,6 @@
             <?php foreach ($top3 as $post): ?>
                 <form action="./blogArticle.php", method="POST">
                     <input type="hidden" name="id" value="<?php echo $post['article_id'] ?>"/>
-                    <input type="hidden" name="logged_in" value="<?php echo isLoggedIn()?>"/>
                     <button type="submit" class="linkbutton"><?php echo $post['article_name'] ?></button>
                 </form>
                 <br>
@@ -115,7 +114,6 @@
             <br>
             <form action="./articleList.php", method="POST">
                 <input type="hidden" name="id" value="<?php echo $blog['blog_id'] ?>"/>
-                <input type="hidden" name="logged_in" value="<?php echo isLoggedIn()?>"/>
                 <button type="submit" class="linkbutton">Go to Article List</button>
             </form>
         </article>
@@ -134,7 +132,6 @@
                 <?php } else {?>
                     <form method="post">
                         <input type="hidden" name="id" value="<?php echo $_POST['id']?>"/>
-                        <input type="hidden" name="logged_in" value="<?php echo isLoggedIn()?>"/>
                         <textarea rows="5" cols="100" name="comment_content" placeholder="New comment..."></textarea>
                         <br>
                         <button type="submit">Submit Comment</button>

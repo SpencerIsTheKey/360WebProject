@@ -1,14 +1,16 @@
 <?php
+    session_start();
 
-function isLoggedIn(){
+    function isLoggedIn(){
         
-    if(isset($_POST['logged_in'])){  //if the logged_in key exists
-        return $_POST['logged_in'];      //return the value stored inside
+        if(isset($_SESSION['logged_in'])){  //if the logged_in key exists
+            return $_SESSION['logged_in'];      //return the value stored inside
 
-    } else {                        //if the logged_in key does not exist
-        return "";                      //return an empty string
+        } else {                        //if the logged_in key does not exist
+            $_SESSION['logged_in'] = "";    //set as empty string
+            return "";                      //return an empty string
+        }
     }
-}
     require "../vendor/autoload.php"; 
     use App\SQLiteConnection as SQLiteConnection;
     use App\SQLiteQuery as SQLiteQuery;
@@ -60,7 +62,6 @@ function isLoggedIn(){
         </div>
         <div id="searchbar">
             <form action="./search.php" method="POST">
-                <input type="hidden" name="logged_in" value="<?php echo isLoggedIn();?>"/>
                 <input id="searchfield" name="search" type="text"/>
                 <button type ="submit" id="searchbtn"><img id="searchimg" src="../CSS/images/search.png"></button>
             </form>
@@ -68,12 +69,10 @@ function isLoggedIn(){
         <div id="login">
             <?php if (empty(isLoggedIn())){ ?>
                 <form action="./login.php" method="POST">
-                    <input type="hidden" name="logged_in" value="<?php echo isLoggedIn();?>"/>
                     <button type="submit" class="linkbutton">Login/Signup</button>
                 </form>
             <?php } else { ?>
                 <form action="./accountManage.php" method="POST">
-                    <input type="hidden" name="logged_in" value="<?php echo isLoggedIn();?>"/>
                     <button type="submit" class="linkbutton">Manage Account</button>
                 </form>
             <?php } ?>
@@ -88,7 +87,6 @@ function isLoggedIn(){
             <?php foreach ($top3 as $post): ?>
                 <form action="./blogArticle.php", method="POST">
                     <input type="hidden" name="id" value="<?php echo $post['article_id'] ?>"/>
-                    <input type="hidden" name="logged_in" value="<?php echo isLoggedIn()?>"/>
                     <button type="submit" class="linkbutton"><?php echo $post['article_name'] ?></button>
                 </form>
                 <br>
@@ -101,7 +99,6 @@ function isLoggedIn(){
             <br>
             <form action="./articleList.php", method="POST">
                 <input type="hidden" name="id" value="<?php echo $_POST['id'] ?>"/>
-                <input type="hidden" name="logged_in" value="<?php echo isLoggedIn()?>"/>
                 <button type="submit" class="linkbutton">Go to Article List</button>
             </form>
         </article>
@@ -122,7 +119,6 @@ function isLoggedIn(){
                     <div class="right">
                         <form action="./blogArticle.php", method="POST">
                             <input type="hidden" name="id" value="<?php echo $article["article_id"] ?>"/>
-                            <input type="hidden" name="logged_in" value="<?php echo isLoggedIn()?>"/>
                             <button type="submit" class="linkbutton">Go to Post</button>
                         </form>
                     </div>
