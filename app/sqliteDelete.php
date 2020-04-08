@@ -1,7 +1,7 @@
 <?php 
 namespace App;
 
-class sqliteCreateTable{
+class sqliteDelete{
 
     private $pdo;
 
