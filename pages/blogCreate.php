@@ -16,13 +16,18 @@ require "../vendor/autoload.php";
 
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
+  $user=$_SESSION['username'];
+  $user_ids = $query->getUserID($user);
+  $user_id = $user_ids[0];
   //blogname
   //description
   $blogname = trim($_POST["blogname"]);
   $description = trim($_POST["description"]);
       
-        $insert->insertBlog($blog_name, $description);
-        header('Location: blog.php');
+       $blog_id= $insert->insertBlog($blog_name, $description);
+       $update -> updateUserBlog($user_id, $blog_id);
+        echo "blog " .$blogname . " created!";
+        // header('Location: blog.php');
 }
 ?>
 <!DOCTYPE html>
@@ -85,7 +90,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 </div>
 <body>
     
-<form id ="forming" name="myForm" method="post" onsubmit="return validateForm()" action="http://www.randyconnolly.com/tests/process.php">
+<form id ="forming" name="myForm" onsubmit="return validateForm()" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
     <fieldset id="fieldset">
       <legend>Blog Creation</legend>
       Blog Name:

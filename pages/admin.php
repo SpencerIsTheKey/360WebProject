@@ -1,24 +1,40 @@
 <?php
- require "../vendor/autoload.php"; 
- use App\SQLiteConnection as SQLiteConnection;
- use App\SQLiteQuery as SQLiteQuery;
- use App\SQLiteUpdate as SQLiteUpdate;
- use App\SQLiteInsert as SQliteInsert;
- use App\SQLiteDelete as SQLiteDelete;
+require "../vendor/autoload.php"; 
+use App\SQLiteConnection as SQLiteConnection;
+use App\SQLiteQuery as SQLiteQuery;
+use App\SQLiteUpdate as SQLiteUpdate;
+use App\SQLiteInsert as SQliteInsert;
+use App\SQLiteDelete as SQLiteDelete;
 
- $conn = (new SQLiteConnection())-> connect();
- $query = new SQLiteQuery($conn);
- $update = new SQLiteUpdate($conn);
- $insert = new SQLiteInsert($conn);
- $delete = new SQLiteDelete($conn);
+$conn = (new SQLiteConnection())-> connect();
+$query = new SQLiteQuery($conn);
+$update = new SQLiteUpdate($conn);
+$insert = new SQLiteInsert($conn);
+$delete = new SQLiteDelete($conn);
 
 // Define variables and initialize with empty values
 
-$username = $password = $confirm_password = $email = "";
-$username_err = $password_err = $confirm_password_err = $email_err= "";
-//reference: https://www.tutorialrepublic.com/php-tutorial/php-mysql-login-system.php?fbclid=IwAR0_2m59t2spcHoN3N7ol-AKk376a3pSmjs1L8_kwhyH1evUh0TSPdv76XE
-// Processing form data when form is submitted
+
 if($_SERVER["REQUEST_METHOD"] == "POST"){
+$user=$_SESSION['username'];
+$user_ids = $query->getUserID($user);
+$user_id = $user_ids[0];
+//blogname
+//description
+
+if(empty(trim($_POST["blog"]))){
+    $password_err = "Please enter a password.";   
+}
+$insert->insertArticle($article_name, $parent_blog, $article_content); //put the blog id in the $parent_blog
+$delete->deleteUser($user_id);
+$delete->deleteBlog($blog_id);
+$delete->deleteArticle($article_id);
+$delete->deleteComment($comment_id);
+
+
+
+            echo "Content Deleted!";
+            // header('Location: blog.php');
 }
 ?>
 
@@ -68,20 +84,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 <body>
     
-<form id ="forming" method="post" action="http://www.randyconnolly.com/tests/process.php">
+<form id ="forming" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
     <fieldset id="fieldset">
       <legend>Administration</legend>
       <!-- Choose a user to Blacklist:
       <input type="text" name="usernameblack" placeholder="Enter a username" /> <br />
       <br /> -->
       Choose a user to ban (using user ID):
-      <input type="text" name="userRemove" placeholder="Enter user ID" /> <br />
+      <input type="text" name="user" placeholder="Enter user ID" /> <br />
       <br />
       Choose an article to remove (using article ID):
-      <input type="text" name="articleRemove" placeholder="Enter article ID" /> <br />
+      <input type="text" name="article" placeholder="Enter article ID" /> <br />
       <br />
       Choose a blog to remove (using blog ID):
-      <input type="text" name="blogRemove" placeholder="Enter article ID" /> <br />
+      <input type="text" name="blog" placeholder="Enter article ID" /> <br />
       <br />
 
       <!-- Choose a user to whitelist:

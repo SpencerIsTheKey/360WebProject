@@ -72,7 +72,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $param_email = $email;
         $param_password = password_hash($password, PASSWORD_DEFAULT); //self explanatory hash value for passwords
         $insert->insertUser($param_username, $param_password, $param_email, 0);
-        header('Location: pages/login.php');//needs fixing
+        header('Location: login.php');//needs fixing
     }else{
 
       echo "There was an error. Please try your information again.";

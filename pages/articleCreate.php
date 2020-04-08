@@ -1,3 +1,40 @@
+<?php
+require "../vendor/autoload.php"; 
+  use App\SQLiteConnection as SQLiteConnection;
+  use App\SQLiteQuery as SQLiteQuery;
+  use App\SQLiteUpdate as SQLiteUpdate;
+  use App\SQLiteInsert as SQliteInsert;
+  use App\SQLiteDelete as SQLiteDelete;
+
+  $conn = (new SQLiteConnection())-> connect();
+  $query = new SQLiteQuery($conn);
+  $update = new SQLiteUpdate($conn);
+  $insert = new SQLiteInsert($conn);
+  $delete = new SQLiteDelete($conn);
+ 
+// Define variables and initialize with empty values
+
+
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+  $user=$_SESSION['username'];
+  $user_ids = $query->getUserID($user);
+  $user_id = $user_ids[0];
+  //blogname
+  //description
+
+  $article_name= trim($_POST["articletitle"]);
+  $article_content = trim($_POST["content"]);
+  $parent_blog = $query->getUserBlog($user_id);
+      
+  $insert->insertArticle($article_name, $parent_blog, $article_content); //put the blog id in the $parent_blog
+
+
+              echo "Article " .$article_name . " created!";
+              // header('Location: blog.php');
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,7 +95,7 @@
 </div>
 <body>
     
-<form id="forming" name="myForm" method="post" onsubmit="return validateForm()" action="http://www.randyconnolly.com/tests/process.php">
+<form id="forming" name="myForm" onsubmit="return validateForm()" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
     <fieldset id="fieldset">
       <legend>Article Creation</legend>
       Article Title:
