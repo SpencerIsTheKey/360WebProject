@@ -1,5 +1,20 @@
 <?php
+ require "../vendor/autoload.php"; 
+ use App\SQLiteConnection as SQLiteConnection;
+ use App\SQLiteQuery as SQLiteQuery;
+ use App\SQLiteUpdate as SQLiteUpdate;
+ use App\SQLiteInsert as SQliteInsert;
+ use App\SQLiteDelete as SQLiteDelete;
+
+ $conn = (new SQLiteConnection())-> connect();
+ $query = new SQLiteQuery($conn);
+ $update = new SQLiteUpdate($conn);
+ $insert = new SQLiteInsert($conn);
+ $delete = new SQLiteDelete($conn);
 // Initialize the session
+// Define variables and initialize with empty values
+$username = $password = "";
+$username_err = $password_err = "";
 session_start();
 
 function isLoggedIn(){
@@ -27,9 +42,7 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 }
 
  
-// Define variables and initialize with empty values
-$username = $password = "";
-$username_err = $password_err = "";
+
  
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -51,10 +64,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Validate credentials
     if(empty($username_err) && empty($password_err)){
         // Prepare a select statement
-        $hashed_password = $query->getUserPassword($_POST['username']); 
+        $hashed_password = $query->getUserPassword($username); 
         if(!empty($hashed_password)){
-       
-                        if(password_verify($password, $hashed_password[0])){
+                    $hash = $hashed_password[0][0];
+                   
+                        if(password_verify($password, $hash)){
                             // Password is correct, so start a new session
                             session_start();
                             $_SESSION["logged_in"] = $id;
@@ -156,7 +170,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="Login">
             </div>
-            <p>Don't have an account? <a href="register.php">Sign up now</a>.</p>
+            <p>Don't have an account? <a href="./accountCreate.php">Sign up now</a>.</p>
   </form>
 </body>
 </html>
