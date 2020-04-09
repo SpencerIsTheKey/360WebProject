@@ -45,7 +45,7 @@
             <h1>Talk About Turtles</h1>
         </div>
         <div id="searchbar">
-            <form action="./search.php" method="GET">
+            <form action="./search.php" method="POST">
                 <input id="searchfield" name="search" type="text"/>
                 <button type ="submit" id="searchbtn"><img id="searchimg" src="../CSS/images/search.png"></button>
             </form>
