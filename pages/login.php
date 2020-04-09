@@ -12,6 +12,13 @@ function isLoggedIn(){
         return "";                      //return an empty string
     }
 }
+
+require "../vendor/autoload.php"; 
+use App\SQLiteConnection as SQLiteConnection;
+use App\SQLiteQuery as SQLiteQuery;
+
+$conn = (new SQLiteConnection())-> connect();
+$query = new SQLiteQuery($conn);
  
 // Check if the user is already logged in, if yes then redirect him to welcome page
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
