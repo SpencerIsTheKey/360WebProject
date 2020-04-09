@@ -16,6 +16,55 @@ class sqliteQuery{
         }
         return $results;
     }
+    public function getBlogsAdmin(){
+        $sql = "SELECT blog_name, blog_id FROM blogs";
+        $stmt = $this->pdo->query($sql);
+        $results = [];
+        while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)){
+            $results[] = [
+                'blog_name'=>$row['blog_name'],
+                'blog_id'=>$row['blog_id'],
+            ];
+        }
+        return $results;
+    }
+    public function getUsersAdmin(){
+        $sql = "SELECT username, user_id FROM users";
+        $stmt = $this->pdo->query($sql);
+        $results = [];
+        while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)){
+            $results[] = [
+                'username'=>$row['username'],
+                'user_id'=>$row['user_id'],
+            ];
+        }
+        return $results;
+    }
+    public function getArticlesAdmin(){
+        $sql = "SELECT article_name,  article_id FROM articles";
+        $stmt = $this->pdo->query($sql);
+        $results = [];
+        while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)){
+            $results[] = [
+                'article_name'=>$row['article_name'],
+                'article_id'=>$row['article_id'],
+            ];
+        }
+        return $results;
+    }
+    public function getCommentsAdmin(){
+        $sql = "SELECT user_id,  comment_id, comment_content FROM comments";
+        $stmt = $this->pdo->query($sql);
+        $results = [];
+        while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)){
+            $results[] = [
+                'user_id'=>$row['user_id'],
+                'comment_id'=>$row['comment_id'],
+                'comment_content'=>$row['comment_content'],
+            ];
+        }
+        return $results;
+    }
     public function getUsernames(){
         $sql = "SELECT username FROM users";
         $stmt = $this->pdo->query();
