@@ -26,10 +26,10 @@
     $article = [];
     $test = "";
 
-    if(empty($_POST)){
+    if(empty($_GET)){
         $article = $query->getArticleByID(" ");
     } else {
-        $article = ($query->getArticleByID($_POST['id']))[0];
+        $article = ($query->getArticleByID($_GET['id']))[0];
     }
 
     if(empty($article)){
@@ -40,15 +40,15 @@
             'parent_blog' => "Confused...",
         ];
     } else {
-        if(array_key_exists('comment_content', $_POST)){
-            $insert->insertComment($_POST['id'], $_SESSION['logged_in'], $_POST['comment_content']);
+        if(array_key_exists('comment_content', $_GET)){
+            $insert->insertComment($_GET['id'], $_SESSION['logged_in'], $_GET['comment_content']);
         } else {
-            $update->addArticleHit($_POST['id']);
+            $update->addArticleHit($_GET['id']);
 
         }
         $top3 = $query->topPosts($article['parent_blog']);
         $blog = $query->getBlogByID($article['parent_blog'])[0];
-        $comments = $query->getArticleComments($_POST['id']);
+        $comments = $query->getArticleComments($_GET['id']);
         $article['parent_blog'] = $query->getParentBlogName($article['parent_blog']);
     }
 
@@ -66,7 +66,7 @@
 
 <div id="navbar">
         <div id="logo">
-            <form action="./main.php" method="POST">
+            <form action="./main.php" method="GET">
                 <div id=logo_btn>
                     <input type="image" src="../CSS/images/Turtle.png" alt="Main" width="75" height="75">
                 </div>
@@ -76,18 +76,18 @@
             <h1>Talk About Turtles</h1>
         </div>
         <div id="searchbar">
-            <form action="./search.php" method="POST">
+            <form action="./search.php" method="GET">
                 <input id="searchfield" name="search" type="text"/>
                 <button type ="submit" id="searchbtn"><img id="searchimg" src="../CSS/images/search.png"></button>
             </form>
         </div>
         <div id="login">
             <?php if (empty(isLoggedIn())){ ?>
-                <form action="./login.php" method="POST">
+                <form action="./login.php" method="GET">
                     <button type="submit" class="linkbutton">Login/Signup</button>
                 </form>
             <?php } else { ?>
-                <form action="./accountManage.php" method="POST">
+                <form action="./accountManage.php" method="GET">
                     <button type="submit" class="linkbutton">Manage Account</button>
                 </form>
             <?php } ?>
@@ -102,7 +102,7 @@
     <article id="right-sidebar">
             <br>
             <?php foreach ($top3 as $post): ?>
-                <form action="./blogArticle.php", method="POST">
+                <form action="./blogArticle.php", method="GET">
                     <input type="hidden" name="id" value="<?php echo $post['article_id'] ?>"/>
                     <button type="submit" class="linkbutton"><?php echo $post['article_name'] ?></button>
                 </form>
@@ -114,7 +114,7 @@
             <br>
             <br>
             <br>
-            <form action="./articleList.php", method="POST">
+            <form action="./articleList.php", method="GET">
                 <input type="hidden" name="id" value="<?php echo $blog['blog_id'] ?>"/>
                 <button type="submit" class="linkbutton">Go to Article List</button>
             </form>
@@ -132,8 +132,8 @@
                     <a class="linkbutton" href="./login.php">Log in to comment</a>
                     <br>
                 <?php } else {?>
-                    <form method="post">
-                        <input type="hidden" name="id" value="<?php echo $_POST['id']?>"/>
+                    <form method="GET">
+                        <input type="hidden" name="id" value="<?php echo $_GET['id']?>"/>
                         <textarea rows="5" cols="100" name="comment_content" placeholder="New comment..."></textarea>
                         <br>
                         <button type="submit">Submit Comment</button>

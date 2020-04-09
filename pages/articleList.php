@@ -22,19 +22,19 @@
     $articles = [];
     $title;
 
-    $blog = ($query->getBlogByID($_POST['id']))[0];
+    $blog = ($query->getBlogByID($_GET['id']))[0];
     //if the blog was found
     if(!empty($blog)){
         //if there are no search parameters
-        if(sizeof($_POST) == 1){
-            $articles = $query->getArticlesFromBlog($_POST['id'], TRUE, 5);
+        if(sizeof($_GET) == 1){
+            $articles = $query->getArticlesFromBlog($_GET['id'], TRUE, 5);
                 
             //shorten the content to the first paragraph
             for ($i=0; $i < sizeof($articles); $i++){
                 $articles[$i]['article_content'] = substr($articles[$i]['article_content'], 0, strpos($articles[$i]['article_content'], "<br>"));                
             }
         } else {
-            $articles = $query->articleListSearch($_POST['id'], $_POST['search'], $_POST['column']);
+            $articles = $query->articleListSearch($_GET['id'], $_GET['search'], $_GET['column']);
             //shorten the content fto the first paragraph
             for ($i=0; $i < sizeof($articles); $i++){
                 $articles[$i]['article_content'] = substr($articles[$i]['article_content'], 0, strpos($articles[$i]['article_content'], "<br>"));
@@ -59,7 +59,7 @@
 
 <div id="navbar">
         <div id="logo">
-            <form action="./main.php" method="POST">
+            <form action="./main.php" method="GET">
                 <div id=logo_btn>
                     <input type="image" src="../CSS/images/Turtle.png" alt="Main" width="75" height="75">
                 </div>
@@ -69,18 +69,18 @@
             <h1>Talk About Turtles</h1>
         </div>
         <div id="searchbar">
-            <form action="./search.php" method="POST">
+            <form action="./search.php" method="GET">
                 <input id="searchfield" name="search" type="text"/>
                 <button type ="submit" id="searchbtn"><img id="searchimg" src="../CSS/images/search.png"></button>
             </form>
         </div>
         <div id="login">
             <?php if (empty(isLoggedIn())){ ?>
-                <form action="./login.php" method="POST">
+                <form action="./login.php" method="GET">
                     <button type="submit" class="linkbutton">Login/Signup</button>
                 </form>
             <?php } else { ?>
-                <form action="./accountManage.php" method="POST">
+                <form action="./accountManage.php" method="GET">
                     <button type="submit" class="linkbutton">Manage Account</button>
                 </form>
             <?php } ?>
@@ -93,9 +93,9 @@
         <article id="right-sidebar">
             <br>
             <br>
-            <form action="" method="POST">
-                <input type="hidden" name="id" value="<?php echo $_POST['id'] ?>"/>
-                <input type="text" name="search" value="<?php if(isset($_POST['search'])){echo $_POST['search'];} else { echo '';} ?>"/>
+            <form action="" method="GET">
+                <input type="hidden" name="id" value="<?php echo $_GET['id'] ?>"/>
+                <input type="text" name="search" value="<?php if(isset($_GET['search'])){echo $_GET['search'];} else { echo '';} ?>"/>
                 <button type="submit"><img src="../CSS/images/search.png" style="height: 1.25em; width: 1.25em;"></button>
                 <br>
                 <br>
@@ -126,7 +126,7 @@
                         <?php echo $article['article_content'] ?>
                     </p>
                     <div class="right">
-                        <form action="./blogArticle.php", method="POST">
+                        <form action="./blogArticle.php", method="GET">
                             <input type="hidden" name="id" value="<?php echo $article["article_id"] ?>"/>
                             <button type="submit" class="linkbutton">Go to Post</button>
                         </form>

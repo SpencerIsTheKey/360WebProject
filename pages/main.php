@@ -35,7 +35,7 @@
 </head>
     <div id="navbar">
         <div id="logo">
-            <form action="./main.php" method="POST">
+            <form action="./main.php" method="GET">
                 <div id=logo_btn>
                     <input type="image" src="../CSS/images/Turtle.png" alt="Main" width="75" height="75">
                 </div>
@@ -45,18 +45,18 @@
             <h1>Talk About Turtles</h1>
         </div>
         <div id="searchbar">
-            <form action="./search.php" method="POST">
+            <form action="./search.php" method="GET">
                 <input id="searchfield" name="search" type="text"/>
                 <button type ="submit" id="searchbtn"><img id="searchimg" src="../CSS/images/search.png"></button>
             </form>
         </div>
         <div id="login">
             <?php if (empty(isLoggedIn())){ ?>
-                <form action="./login.php" method="POST">
+                <form action="./login.php" method="GET">
                     <button type="submit" class="linkbutton">Login/Signup</button>
                 </form>
             <?php } else { ?>
-                <form action="./accountManage.php" method="POST">
+                <form action="./accountManage.php" method="GET">
                     <button type="submit" class="linkbutton">Manage Account</button>
                 </form>
             <?php } ?>
@@ -88,11 +88,11 @@
                         <?php echo $blog['about'] ?>
                     </p>
                     <div class="right">
-                        <form action="./articleList.php", method="POST">
+                        <form action="./articleList.php", method="GET">
                             <input type="hidden" name="id" value="<?php echo $blog['blog_id'] ?>"/>
                             <button type="submit" class="linkbutton">Go to Article List</button>
                         </form>
-                        <form action="./blog.php", method="POST">
+                        <form action="./blog.php", method="GET">
                             <input type="hidden" name="id" value="<?php echo $blog['blog_id'] ?>"/>
                             <button type="submit" class="linkbutton">Go to Blog</button>
                         </form>
