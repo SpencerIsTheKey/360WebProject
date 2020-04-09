@@ -59,8 +59,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         // Prepare a select statement
         $hashed_password = $query->getUserPassword($username); 
         if(!empty($hashed_password)){
-       
-                        if(password_verify($password, $hashed_password[0])){
+                    $hash = $hashed_password[0][0];
+                   
+                        if(password_verify($password, $hash)){
                             // Password is correct, so start a new session
                             session_start();
                             $_SESSION["logged_in"] = $id;
