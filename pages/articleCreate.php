@@ -57,6 +57,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             background:  #f5eaea;
             padding: 0.5em;
           }
+          .form-control{
+         
+         margin-left: 2rem;
+            margin-right: 1rem;
+            float: right;
+      }
+      #wrapper{
+          text-align: center;
+          margin-top: 3rem;
+         
+      }
     </style>
     <script>
         function validateForm() {
@@ -94,19 +105,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     </div>
 </div>
 <body>
-    
+    <div id = "wrapper">
 <form id="forming" name="myForm" onsubmit="return validateForm()" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
     <fieldset id="fieldset">
       <legend>Article Creation</legend>
       Article Title:
-      <input type="text" name="articletitle" placeholder="Enter an article title" /> <br />
+      <input type="text"  class = "form-control" name="articletitle" placeholder="Enter an article title" /> <br />
       <br />
       Enter the content of your article:<br>
       <textarea name = "content" rows ="50" cols = "60"></textarea>
      <br>
-      <input type="submit" value = "Submit" /> <input type="reset" />
+      <input type="submit" class = "form-control" value = "Submit" /> <input type="reset" />
     </fieldset>
   </form>
+  </div>
 </body>
 </html>
 

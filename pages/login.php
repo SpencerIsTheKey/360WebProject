@@ -59,7 +59,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         // Prepare a select statement
         $hashed_password = $query->getUserPassword($username); 
         if(!empty($hashed_password)){
-                    $hash = $hashed_password[0][0];
+                    $hash = $hashed_password[0]['password'];
+                    
                    
                         if(password_verify($password, $hash)){
                             // Password is correct, so start a new session
@@ -101,7 +102,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <style>
         #fieldset {
             color: black;
-            padding: 1em;
+            padding: 3em;
           }
           legend {
               text-align: center;
@@ -110,6 +111,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
           #forming {
             background:  #f5eaea;
             padding: 0.5em;
+          }
+          .form-control{
+         
+             margin-left: 2rem;
+                margin-right: 1rem;
+                float: right;
+          }
+          #wrapper{
+              text-align: center;
+              margin-top: 3rem;
+             
           }
     </style>
   
@@ -144,27 +156,30 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         </div>
     </div>
 <body>
-    
+    <div id="wrapper">
 <form id ="forming" name="myForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
     <fieldset id="fieldset">
-      <legend>Account Creation</legend>
+      <legend>Login</legend>
 
       
       <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
                 <label>Username</label>
                 <input type="text" name="username" class="form-control" value="<?php echo $username; ?>">
                 <span class="help-block"><?php echo $username_err; ?></span>
-            </div>    
+            </div>   
+            <br> 
             <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
                 <label>Password</label>
                 <input type="password" name="password" class="form-control">
                 <span class="help-block"><?php echo $password_err; ?></span>
             </div>
+            <br>
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="Login">
             </div>
             <p>Don't have an account? <a href="./accountCreate.php">Sign up now</a>.</p>
   </form>
+  </div>
 </body>
 </html>
 

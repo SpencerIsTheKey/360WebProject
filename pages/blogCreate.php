@@ -97,6 +97,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             background: #f5eaea;
             padding: 0.5em;
           }
+          .form-control{
+         
+         margin-left: 2rem;
+            margin-right: 1rem;
+            float: right;
+      }
+      #wrapper{
+          text-align: center;
+          margin-top: 3rem;
+         
+      }
     </style>
     <script>
         //reference: https://www.w3schools.com/js/js_validation.asp
@@ -134,23 +145,25 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     </div>
 </div>
 <body>
-    
+    <div id = "wrapper">
 <form id ="forming" name="myForm" onsubmit="return validateForm()" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
     <fieldset id="fieldset">
       <legend>Blog Creation</legend>
       Blog Name:
-      <input type="text" name="blogname" placeholder="Enter the name for your blog" /> <br />
+      <input type="text"  name="blogname" placeholder="Enter your blog's name" /> <br />
       <br />
-      Choose a profile image:
-      <input type="file"
+      Profile Image:
+      <input type="file" class = "form-control"
       id="avatar" name="avatar"
       accept="image/png, image/jpeg">
-      <br />
-      Describe your blog here:<br>
-   <textarea id = "description" rows ="4" cols = "50"></textarea>
+      
+      <br>
+      Describe your blog here:
+   <textarea id = "description"  rows ="4" cols = "50"></textarea>
      <br>
       <input type="submit" /> <input type="reset" />
     </fieldset>
+    </div>
   </form>
 </body>
 </html>

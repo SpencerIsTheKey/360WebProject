@@ -99,6 +99,16 @@ if(isset($_POST['comment'])){
             background:  #f5eaea;
             padding: 0.5em;
           }
+          .form-control{
+                margin-left: 2rem;
+                margin-right: 1rem;
+                float: right;
+          }
+          #wrapper{
+              text-align: center;
+              margin-top: 3rem;
+             
+          }
     </style>
 </head>
 <div id="navbar">
@@ -122,6 +132,7 @@ if(isset($_POST['comment'])){
 </div>
 
 <body>
+<div id="wrapper">
     
 <form id ="forming" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
     <fieldset id="fieldset">
@@ -130,16 +141,16 @@ if(isset($_POST['comment'])){
       <input type="text" name="usernameblack" placeholder="Enter a username" /> <br />
       <br /> -->
       Choose a user to ban (using user ID):
-      <input type="text" name="user" placeholder="Enter the user (username) you want deleted" /><br />
+      <input type="text" class = "form-control" name="user" placeholder="Enter the user (username) you want deleted" /><br />
       <br />
       Choose an article to remove (using article ID):
-      <input type="text" name="article" placeholder="Enter article ID to delete" /> <br />
+      <input type="text" class = "form-control" name="article" placeholder="Enter article ID to delete" /> <br />
       <br />
       Choose a blog to remove (using blog ID):
-      <input type="text" name="blog" placeholder="Enter blog ID to delete" /> <br />
+      <input type="text" class = "form-control" name="blog" placeholder="Enter blog ID to delete" /> <br />
       <br />
       Choose a comment to remove (using using comment ID):
-      <input type="text" name="comment" placeholder="Enter comment ID to delete" /> <br />
+      <input type="text" class = "form-control" name="comment" placeholder="Enter comment ID to delete" /> <br />
       <br />
 
       <!-- Choose a user to whitelist:
@@ -150,6 +161,7 @@ if(isset($_POST['comment'])){
       <input type="submit" /> <input type="reset" />
     </fieldset>
   </form>
+        </div>
 </body>
 </html>
 

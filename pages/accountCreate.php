@@ -98,9 +98,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
               text-align: center;
           }
 
-          #forming {
+        #forming {
             background:  #f5eaea;
             padding: 0.5em;
+            justify-content: center;
+            text-align: center;
+          }
+          .form-control{
+                margin-left: 2rem;
+                margin-right: 1rem;
+                float: right;
+          }
+          #wrapper{
+              text-align: center;
+              margin-top: 3rem;
+             
           }
     </style>
   
@@ -125,7 +137,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     </div>
 </div>
 <body>
-    
+ <div id = "wrapper">  
 <form id ="forming" name="myForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
     <fieldset id="fieldset">
       <legend>Account Creation</legend>
@@ -162,6 +174,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             </div>
             <p>Already have an account? <a href="./login.php">Login here</a>.</p>
   </form>
+  </div> 
 </body>
 </html>
 
