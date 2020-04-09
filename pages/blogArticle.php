@@ -66,7 +66,7 @@
 
 <div id="navbar">
         <div id="logo">
-            <form action="./main.php" method="GET">
+            <form action="./main.php" method="POST">
                 <div id=logo_btn>
                     <input type="image" src="../CSS/images/Turtle.png" alt="Main" width="75" height="75">
                 </div>
