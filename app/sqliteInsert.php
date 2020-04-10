@@ -33,6 +33,8 @@ class sqliteInsert{
         return $this->pdo->lastInsertId();
     }
     public function insertArticle($article_name, $parent_blog, $article_content){
+        $article_content = str_replace("\n", "<br>", $article_content);
+
         $sql = "INSERT INTO articles(article_name, parent_blog, article_content, pub_date, hits) VALUES(:article_name, :parent_blog, :article_content, :pub_date, 0)";
         $stmt = $this->pdo->prepare($sql);
 
