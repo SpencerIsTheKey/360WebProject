@@ -108,7 +108,7 @@ class sqliteQuery{
         $sql = "SELECT blog_id FROM users WHERE user_id = :user_id";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([
-            ":blog_id"=>$blog_id,
+            ":blog_id"=>$user_id,
         ]);
         $results = [];
         while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)){
