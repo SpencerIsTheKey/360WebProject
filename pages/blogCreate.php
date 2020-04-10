@@ -161,7 +161,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
       
       <br>
       Describe your blog here:
-   <textarea id = "description"  rows ="4" cols = "50"></textarea>
+   <textarea id = "description" name = "description" rows ="4" cols = "50"></textarea>
      <br>
       <input type="submit" /> <input type="reset" />
     </fieldset>
