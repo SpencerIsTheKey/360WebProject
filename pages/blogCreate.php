@@ -152,8 +152,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 </div>
 <body>
     <div id = "wrapper">
-   <?php print_r($_FILES) ?>
-<form id ="forming" name="myForm" onsubmit="return validateForm()" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+   
+<form id ="forming" name="myForm" onsubmit="return validateForm()" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
     <fieldset id="fieldset">
       <legend>Blog Creation</legend>
       Blog Name:
