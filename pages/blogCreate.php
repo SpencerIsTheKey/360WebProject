@@ -19,6 +19,7 @@ require "../vendor/autoload.php";
 if($_SERVER["REQUEST_METHOD"] == "POST"){
   $user=$_SESSION['username'];
   $user_ids = $query->getUserID($user);
+  if(!empty($user_ids)){
   $user_id = $user_ids[0]['user_id'];
   //blogname
   //description
@@ -69,13 +70,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         } else {
             if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
                 echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+                header("location: main.php");
             } else {
                 echo "Sorry, there was an error uploading your file.";
             }
         }
         $update->updateBlogImg($blog_id, $target_file);
 
-}
+}}
 ?>
 <!DOCTYPE html>
 <html lang="en">
