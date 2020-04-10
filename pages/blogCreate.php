@@ -27,7 +27,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
       
    $blog_id= $insert->insertBlog($blog_name, $description);
        $update -> updateUserBlog($user_id, $blog_id);
-        echo "blog " .$blogname . " created!";
+        echo "blog " .$blog_name . " created!";
         // header('Location: blog.php');
 
       //reference: https://www.w3schools.com/php/php_file_upload.asp?fbclid=IwAR0e9PACag0wZ_azGC9gjEYun27THoWOMt5OORmb9diMT22X48m5nGg2vKs
@@ -156,7 +156,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
       <br />
       Profile Image:
       <input type="file" class = "form-control"
-      id="avatar" name="avatar"
+      id="fileToUpload" name="fileToUpload"
       accept="image/png, image/jpeg">
       
       <br>

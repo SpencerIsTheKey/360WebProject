@@ -161,7 +161,7 @@ $article_id = "";
       <input type="text"  class = "form-control" name="articletitle" placeholder="Enter an article title" /> <br />
       <br />
       <input type="file" class = "form-control"
-      id="avatar" name="avatar"
+      id="fileToUpload" name="fileToUpload"
       accept="image/png, image/jpeg">
       <br>
       Enter the content of your article:<br>
