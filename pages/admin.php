@@ -27,52 +27,6 @@ $delete = new SQLiteDelete($conn);
 
 // Define variables and initialize with empty values
 
-if($_SERVER["REQUEST_METHOD"] == "GET"){
-//code for retrieving the the list of content determined by the select
-if(isset($_GET['content'])){
-    $choice = $_GET['content'];
-
-    echo"<table>
-                <thead>
-                    <tr>
-                        <th>Tables</th>
-            </thead>
-                        <tbody>
-                   
-                </tbody>
-            </table>
-        </div>";
-    switch ($choice) {
-        case "blog":
-            $blogs = $query->getBlogsAdmin();
-            foreach($blogs as $blog){
-                echo "<td>".$blog."</td>";
-            }
-            break;
-        case "article":
-            $articles = $query->getArticlesAdmin();
-            foreach($articles as $article){
-                echo "<td>".$article."</td>";
-            }
-            break;
-        case "comment":
-            $comments = $query->getCommentsAdmin();
-            foreach($comments as $comment){
-                echo "<td>".$comment."</td>";
-            }
-            break;
-        case "user":
-            $users = $query->getUsersAdmin();
-            foreach($users as $user){
-                echo "<td>".$user."</td>";
-            }
-            break;
-    }
-
-}
-
-}
-
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     
          
@@ -172,7 +126,7 @@ if(isset($_POST['comment'])){
 </head>
 <div id="navbar">
         <div id="logo">
-            <form action="./main.php" method="POST">
+            <form action="./main.php" method="GET">
                 <div id=logo_btn>
                     <input type="image" src="../CSS/images/Turtle.png" alt="Main" width="75" height="75">
                 </div>
@@ -189,12 +143,33 @@ if(isset($_POST['comment'])){
         </div>
         <div id="login">
             <?php if (empty(isLoggedIn())){ ?>
-                <form action="./login.php" method="POST">
+                <form action="./login.php" method="GET">
                     <button type="submit" class="linkbutton">Login/Signup</button>
                 </form>
+
+            <?php } else if($query->isAdmin(isLoggedIn())) { ?>
+                <form action="./blogCreate.php" method="GET">
+                    <button type="submit" class="linkbutton">Create Blog</button>
+                </form>
+                <form action="./admin.php" method="GET">
+                    <button type="submit" class="linkbutton">Admin Page</button>
+                </form>
+                <form action="./logout.php" method="GET">
+                    <button type="submit" class="linkbutton">Logout</button>
+                </form>
+            <?php } else if(empty($query->getUserBlog(isLoggedIn()))) { ?>
+                <form action="./blogCreate.php" method="GET">
+                    <button type="submit" class="linkbutton">Create Blog</button>
+                </form>
+                <form action="./logout.php" method="GET">
+                    <button type="submit" class="linkbutton">Logout</button>
+                </form>
             <?php } else { ?>
-                <form action="./accountManage.php" method="POST">
-                    <button type="submit" class="linkbutton">Manage Account</button>
+                <form action="./articleCreate.php" method="GET">
+                    <button type="submit" class="linkbutton">Create Article</button>
+                </form>
+                <form action="./logout.php" method="GET">
+                    <button type="submit" class="linkbutton">Logout</button>
                 </form>
             <?php } ?>
         </div>
@@ -248,9 +223,93 @@ if(isset($_POST['comment'])){
                 <input type="submit" /> 
             </form>
 
-
-</body>
-</html>
-
+<?php if($_SERVER["REQUEST_METHOD"] == "GET") : ?>
+<?php if(isset($_GET['content'])):  
+    $choice = $_GET['content'];
+    switch($choice){
+        case "blog":
+            $content = $query->getBlogsAdmin();
+            break;
+        case "article":
+            $content = $query->getArticlesAdmin();
+            break;
+        case "comment":
+            $content = $query->getCommentsAdmin();
+            break;
+        case "user":
+            $content = $query->getUsersAdmin();
+            break;
+    }
+    ?>
+    
+<table align="center" border="1" bordercolor="#7fcd91">
+    <thead>
+        <tr>
+        <?php switch ($choice) {
+            case "blog":
+                echo "
+                <th>Blog Name</th>
+                <th>Blog ID</th>
+                ";
+                break;
+            case "article":
+                echo "
+                <th>Article Name</th>
+                <th>Article ID</th>
+                ";
+                break;
+            case "comment":
+                echo "
+                <th>User ID</th>
+                <th>Comment ID</th>
+                <th>Comment Content</th>
+                ";
+                break;
+            case "user":
+                echo "
+                <th>Username</th>
+                <th>User ID</th>
+                ";
+                break;                            
+        } ?>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($content as $row) : ?>
+            <tr>
+            <?php switch ($choice) {
+                case "blog":
+                    echo "
+                    <td>".$row['blog_name']."</td>
+                    <td>".$row['blog_id']."</td>
+                    ";
+                    break;
+                case "article":
+                    echo "
+                    <td>".$row['article_name']."</td>
+                    <td>".$row['article_id']."</td>
+                    ";
+                    break;
+                case "comment":
+                    echo "
+                    <td>".$row['user_id']."</td>
+                    <td>".$row['comment_id']."</td>
+                    <td>".$row['comment_content']."</td>
+                    ";
+                    break;
+                case "user":
+                    echo "
+                    <td>".$row['username']."</td>
+                    <td>".$row['user_id']."</td>
+                    ";
+                    break;                            
+            } ?>
+            </tr>
+            <?php endforeach; ?>
+    </tbody>
+</table>
+<?php endif; ?>
+<?php endif; ?>
+</div>
 </body>
 </html>

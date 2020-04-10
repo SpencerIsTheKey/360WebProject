@@ -7,6 +7,24 @@ class sqliteQuery{
     public function __construct($pdo){
         $this->pdo = $pdo;
     }
+    public function isAdmin($user_id){
+        $sql = "SELECT is_admin FROM users WHERE user_id = :user_id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([
+            ":user_id"=>$user_id,
+        ]);
+        $results = [];
+        while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)){
+            $results[] = [
+                'is_admin'=>$row['is_admin'],
+            ];
+        }
+        if($results[0]['is_admin'] == 1){
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
     public function getAllBlogs(){
         $sql = "SELECT blog_name FROM blogs";
         $stmt = $this->pdo->query($sql);

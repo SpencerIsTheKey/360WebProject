@@ -55,13 +55,30 @@
                 <form action="./login.php" method="GET">
                     <button type="submit" class="linkbutton">Login/Signup</button>
                 </form>
+
+            <?php } else if($query->isAdmin(isLoggedIn())) { ?>
+                <form action="./blogCreate.php" method="GET">
+                    <button type="submit" class="linkbutton">Create Blog</button>
+                </form>
+                <form action="./admin.php" method="GET">
+                    <button type="submit" class="linkbutton">Admin Page</button>
+                </form>
+                <form action="./logout.php" method="GET">
+                    <button type="submit" class="linkbutton">Logout</button>
+                </form>
             <?php } else if(empty($query->getUserBlog(isLoggedIn()))) { ?>
                 <form action="./blogCreate.php" method="GET">
                     <button type="submit" class="linkbutton">Create Blog</button>
                 </form>
+                <form action="./logout.php" method="GET">
+                    <button type="submit" class="linkbutton">Logout</button>
+                </form>
             <?php } else { ?>
                 <form action="./articleCreate.php" method="GET">
                     <button type="submit" class="linkbutton">Create Article</button>
+                </form>
+                <form action="./logout.php" method="GET">
+                    <button type="submit" class="linkbutton">Logout</button>
                 </form>
             <?php } ?>
         </div>
