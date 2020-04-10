@@ -1,4 +1,5 @@
 <?php
+session_start();
 require "../vendor/autoload.php"; 
   use App\SQLiteConnection as SQLiteConnection;
   use App\SQLiteQuery as SQLiteQuery;

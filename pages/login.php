@@ -52,10 +52,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Validate credentials
     if(empty($username_err) && empty($password_err)){
         // Prepare a select statement
-        $hashed_password = $query->getUserPassword($username); 
+        $hashed_password = $query->getUserPassword($username);
+        $id = $query->getUserID($username)[0]['user_id'];
         if(!empty($hashed_password)){
                     $hash = $hashed_password[0]['password'];
-                    
                    
                         if(password_verify($password, $hash)){
                             // Password is correct, so start a new session

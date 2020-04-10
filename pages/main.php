@@ -55,9 +55,13 @@
                 <form action="./login.php" method="GET">
                     <button type="submit" class="linkbutton">Login/Signup</button>
                 </form>
+            <?php } else if(empty($query->getUserBlog(isLoggedIn()))) { ?>
+                <form action="./blogCreate.php" method="GET">
+                    <button type="submit" class="linkbutton">Create Blog</button>
+                </form>
             <?php } else { ?>
-                <form action="./accountManage.php" method="GET">
-                    <button type="submit" class="linkbutton">Manage Account</button>
+                <form action="./articleCreate.php" method="GET">
+                    <button type="submit" class="linkbutton">Create Article</button>
                 </form>
             <?php } ?>
         </div>
