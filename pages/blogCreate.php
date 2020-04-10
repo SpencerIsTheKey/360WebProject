@@ -22,7 +22,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   $user_id = $user_ids[0]['user_id'];
   //blogname
   //description
-  $blogname = trim($_POST["blogname"]);
+  $blog_name = trim($_POST["blogname"]);
   $description = trim($_POST["description"]);
       
    $blog_id= $insert->insertBlog($blog_name, $description);
