@@ -24,7 +24,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   $blogname = trim($_POST["blogname"]);
   $description = trim($_POST["description"]);
       
-       $blog_id= $insert->insertBlog($blog_name, $description);
+   $blog_id= $insert->insertBlog($blog_name, $description);
        $update -> updateUserBlog($user_id, $blog_id);
         echo "blog " .$blogname . " created!";
         // header('Location: blog.php');
@@ -72,7 +72,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 echo "Sorry, there was an error uploading your file.";
             }
         }
-        // $insert->insert
+        $update->updateBlogImg($blog_id, $target_file);
 
 }
 ?>

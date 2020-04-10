@@ -16,6 +16,7 @@ require "../vendor/autoload.php";
 
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
+$article_id = "";
   $user=$_SESSION['username'];
   $user_ids = $query->getUserID($user);
   $user_id = $user_ids[0];
@@ -26,7 +27,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   $article_content = trim($_POST["content"]);
   $parent_blog = $query->getUserBlog($user_id);
       
-  $insert->insertArticle($article_name, $parent_blog, $article_content); //put the blog id in the $parent_blog
+  $article_id = $insert->insertArticle($article_name, $parent_blog, $article_content); //put the blog id in the $parent_blog
 
 
               echo "Article " .$article_name . " created!";
@@ -76,7 +77,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                  echo "Sorry, there was an error uploading your file.";
              }
          }
-}
+         $update->updateArticleImg($article_id, $target_file);
+}        
 ?>
 
 
