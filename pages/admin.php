@@ -34,19 +34,27 @@ if(isset($_GET['content'])){
     switch ($choice) {
         case "blog":
             $blogs = $query->getBlogsAdmin();
-            echo "i equals 0";
+            foreach($blogs as $blog){
+                echo "<td>".$blog."</td>";
+            }
             break;
         case "article":
             $articles = $query->getArticlesAdmin();
-            echo "i equals 1";
+            foreach($articles as $article){
+                echo "<td>".$article."</td>";
+            }
             break;
         case "comment":
             $comments = $query->getCommentsAdmin();
-            echo "i equals 2";
+            foreach($comments as $comment){
+                echo "<td>".$comment."</td>";
+            }
             break;
         case "user":
             $users = $query->getUsersAdmin();
-            echo "i equals 2";
+            foreach($users as $user){
+                echo "<td>".$user."</td>";
+            }
             break;
     }
 
@@ -216,8 +224,8 @@ if(isset($_POST['comment'])){
 
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>"  method="GET">
                 <input type="hidden" name="id" value="<?php echo $_GET['id'] ?>"/>
-                <input type="text" name="search" value="<?php if(isset($_GET['search'])){echo $_GET['search'];} else { echo '';} ?>"/>
-                <button type="submit"><img src="../CSS/images/search.png" style="height: 1.25em; width: 1.25em;"></button>
+              
+               
                 <br>
                 <br>
                 <select id="content" name="content">
