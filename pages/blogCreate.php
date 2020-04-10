@@ -72,6 +72,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 echo "Sorry, there was an error uploading your file.";
             }
         }
+        $insert->insert
 
 }
 ?>

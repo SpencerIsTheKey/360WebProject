@@ -27,6 +27,33 @@ $delete = new SQLiteDelete($conn);
 
 // Define variables and initialize with empty values
 
+if($_SERVER["REQUEST_METHOD"] == "GET"){
+//code for retrieving the the list of content determined by the select
+if(isset($_GET['content'])){
+    $choice = $_GET['content'];
+    switch ($choice) {
+        case "blog":
+            $blogs = $query->getBlogsAdmin();
+            echo "i equals 0";
+            break;
+        case "article":
+            $articles = $query->getArticlesAdmin();
+            echo "i equals 1";
+            break;
+        case "comment":
+            $comments = $query->getCommentsAdmin();
+            echo "i equals 2";
+            break;
+        case "user":
+            $users = $query->getUsersAdmin();
+            echo "i equals 2";
+            break;
+    }
+
+}
+
+}
+
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     
          
@@ -184,6 +211,33 @@ if(isset($_POST['comment'])){
       <input type="submit" /> <input type="reset" />
     </fieldset>
   </form>
+  <br>
+  <label for="content-type">Choose type of content to list out:</label>
+
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>"  method="GET">
+                <input type="hidden" name="id" value="<?php echo $_GET['id'] ?>"/>
+                <input type="text" name="search" value="<?php if(isset($_GET['search'])){echo $_GET['search'];} else { echo '';} ?>"/>
+                <button type="submit"><img src="../CSS/images/search.png" style="height: 1.25em; width: 1.25em;"></button>
+                <br>
+                <br>
+                <select id="content" name="content">
+                    <option value="comment">Comments</option>
+                    <option value="article">Articles</option>
+                    <option value="blog">Blogs</option>
+                    <option value = "user">Users</option>
+                </select>
+                <input type="submit" /> 
+            </form>
+
+<table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Tables</th>
+            </thead>
+                        <tbody>
+                   
+                </tbody>
+            </table>
         </div>
 </body>
 </html>

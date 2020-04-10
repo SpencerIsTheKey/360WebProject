@@ -8,7 +8,22 @@ class sqliteUpdate{
     public function __construct($pdo){
         $this->pdo = $pdo;
     }
-
+    public function updateBlogImg($blog_id, $img_path){
+        $sql = "UPDATE blogs cover_img =:img_path WHERE blog_id = :blog_id";
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute([
+            ":img_path" => $img_path,
+            ":blog_id" => $blog_id,
+        ]);
+    }
+    public function updateArticleImg($article_id, $img_path){
+        $sql = "UPDATE articles art_img =:img_path WHERE article_id = :article_id";
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute([
+            ":img_path" => $img_path,
+            ":article_id" => $article_id,
+        ]);
+    }
     public function updateBlogName($blog_id, $blog_name){
         $sql = "UPDATE blogs blog_name = :blog_name WHERE blog_id = :blog_id";
         $stmt = $this->pdo->prepare($sql);
