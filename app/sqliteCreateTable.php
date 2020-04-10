@@ -24,7 +24,6 @@ class sqliteCreateTable{
                 email TEXT NOT NULL,
                 blog_id INTEGER,
                 is_admin INTEGER NOT NULL,
-                profile_img TEXT,
                 FOREIGN KEY (blog_id)
                 REFERENCES blogs(blog_id) ON UPDATE CASCADE
                                           ON DELETE CASCADE
