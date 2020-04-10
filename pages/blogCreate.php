@@ -150,7 +150,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 </div>
 <body>
     <div id = "wrapper">
-    <?php print_r($user_ids) ?>
 <form id ="forming" name="myForm" onsubmit="return validateForm()" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
     <fieldset id="fieldset">
       <legend>Blog Creation</legend>
