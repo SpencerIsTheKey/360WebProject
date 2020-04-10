@@ -9,7 +9,7 @@ class sqliteUpdate{
         $this->pdo = $pdo;
     }
     public function updateBlogImg($blog_id, $img_path){
-        $sql = "UPDATE blogs cover_img =:img_path WHERE blog_id = :blog_id";
+        $sql = "UPDATE blogs SET cover_img =:img_path WHERE blog_id = :blog_id";
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([
             ":img_path" => $img_path,
@@ -17,7 +17,7 @@ class sqliteUpdate{
         ]);
     }
     public function updateArticleImg($article_id, $img_path){
-        $sql = "UPDATE articles art_img =:img_path WHERE article_id = :article_id";
+        $sql = "UPDATE articles SET art_img =:img_path WHERE article_id = :article_id";
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([
             ":img_path" => $img_path,
@@ -25,7 +25,7 @@ class sqliteUpdate{
         ]);
     }
     public function updateBlogName($blog_id, $blog_name){
-        $sql = "UPDATE blogs blog_name = :blog_name WHERE blog_id = :blog_id";
+        $sql = "UPDATE blogs SET blog_name = :blog_name WHERE blog_id = :blog_id";
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([
             ":blog_name" => $blog_name,
@@ -33,7 +33,7 @@ class sqliteUpdate{
         ]);
     }
     public function updateBlogAbout($blog_id, $about){
-        $sql = "UPDATE blogs about = :about WHERE blog_id = :blog_id";
+        $sql = "UPDATE blogs SET about = :about WHERE blog_id = :blog_id";
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([
             ":about" => $about,
@@ -48,7 +48,7 @@ class sqliteUpdate{
         ]);
     }
     public function updateUsername($user_id, $username){
-        $sql = "UPDATE users username = :username WHERE user_id = :user_id";
+        $sql = "UPDATE users SET username = :username WHERE user_id = :user_id";
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([
             ":username" => $username,
@@ -56,7 +56,7 @@ class sqliteUpdate{
         ]);
     }
     public function updateUserBlog($user_id, $blog_id){
-        $sql = "UPDATE users blog_id = :blog_id WHERE user_id = :user_id";
+        $sql = "UPDATE users SET blog_id = :blog_id WHERE user_id = :user_id";
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([
             ":blog_id" => $blog_id,
@@ -64,7 +64,7 @@ class sqliteUpdate{
         ]);
     }
     public function updateUserImg($user_id, $profile_img){
-        $sql = "UPDATE users profile_img = :profile_img WHERE user_id = :user_id";
+        $sql = "UPDATE users SET profile_img = :profile_img WHERE user_id = :user_id";
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([
             ":profile_img" => $profile_img,
@@ -86,7 +86,7 @@ class sqliteUpdate{
         ]);
     }
     public function updateArticleName($article_id, $article_name){
-        $sql = "UPDATE articles article_name = :article_name WHERE article_id = :article_id";
+        $sql = "UPDATE articles SET article_name = :article_name WHERE article_id = :article_id";
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([
             ":article_name" => $article_name,
@@ -94,7 +94,7 @@ class sqliteUpdate{
         ]);
     }
     public function updateArticleContent($article_id, $article_content){
-        $sql = "UPDATE articles article_content = :article_conent WHERE article_id = :article_id";
+        $sql = "UPDATE articles SET article_content = :article_conent WHERE article_id = :article_id";
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([
             ":article_content" => $article_content,
@@ -109,7 +109,7 @@ class sqliteUpdate{
         ]);
     }
     public function updateCommentContent($comment_id, $comment_content){
-        $sql = "UPDATE articles content = :comment_conent WHERE comment_id = :comment_id";
+        $sql = "UPDATE articles SET content = :comment_conent WHERE comment_id = :comment_id";
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([
             ":content" => $comment_content,
