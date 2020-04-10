@@ -33,7 +33,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         // header('Location: blog.php');
 
       //reference: https://www.w3schools.com/php/php_file_upload.asp?fbclid=IwAR0e9PACag0wZ_azGC9gjEYun27THoWOMt5OORmb9diMT22X48m5nGg2vKs
-        $target_dir = "../uploads/";
+        $target_dir = "./uploads";
         $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
         $uploadOk = 1;
         $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
