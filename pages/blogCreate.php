@@ -18,7 +18,7 @@ require "../vendor/autoload.php";
 if($_SERVER["REQUEST_METHOD"] == "POST"){
   $user=$_SESSION['username'];
   $user_ids = $query->getUserID($user);
-  $user_id = $user_ids[0];
+  $user_id = $user_ids[0]['user_id'];
   //blogname
   //description
   $blogname = trim($_POST["blogname"]);

@@ -31,6 +31,17 @@ if($_SERVER["REQUEST_METHOD"] == "GET"){
 //code for retrieving the the list of content determined by the select
 if(isset($_GET['content'])){
     $choice = $_GET['content'];
+
+    echo"<table>
+                <thead>
+                    <tr>
+                        <th>Tables</th>
+            </thead>
+                        <tbody>
+                   
+                </tbody>
+            </table>
+        </div>";
     switch ($choice) {
         case "blog":
             $blogs = $query->getBlogsAdmin();
@@ -237,16 +248,7 @@ if(isset($_POST['comment'])){
                 <input type="submit" /> 
             </form>
 
-<table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Tables</th>
-            </thead>
-                        <tbody>
-                   
-                </tbody>
-            </table>
-        </div>
+
 </body>
 </html>
 
